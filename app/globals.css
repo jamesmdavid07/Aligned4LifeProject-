@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --font-nunito: 'Nunito';
+    --font-raleway: 'Raleway';
+    --font-roboto: 'Roboto';
+    --font-montserrat: 'Montserrat';
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(0 0% 89.8%);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: var(--font-roboto), Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .hero-gradient {
+    background: linear-gradient(135deg, #1A3A70 0%, #253763 50%, #0A195F 100%);
+  }
+  .section-dark-gradient {
+    background: linear-gradient(180deg, #253763 0%, #1A3A71 100%);
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply inline-flex items-center justify-center font-raleway font-bold rounded-md transition-all duration-300 hover:shadow-lg;
+    background-color: #9C7331;
+    color: #ffffff;
+    padding: 0.75rem 2.75rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  .btn-gold:hover {
+    background-color: #9D7331;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.3);
+  }
+  .btn-navy {
+    @apply inline-flex items-center justify-center font-raleway font-bold rounded-md transition-all duration-300;
+    background-color: #1A3A70;
+    color: #ffffff;
+    padding: 0.75rem 2.75rem;
+    font-size: 1.25rem;
+  }
+  .btn-navy:hover {
+    background-color: #16305B;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.25);
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center font-raleway font-bold rounded-md transition-all duration-300 border-2;
+    background-color: transparent;
+    border-color: #1A3A70;
+    color: #1A3A70;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+  }
+  .btn-outline:hover {
+    background-color: #1A3A70;
+    color: #ffffff;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1A3A70;
+}
+::-webkit-scrollbar-thumb {
+  background: #9C7331;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B88E3E;
+}
