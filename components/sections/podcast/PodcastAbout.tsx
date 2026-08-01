@@ -5,15 +5,15 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/animations/Revea
 
 const schedule = [
   {
-    src: '/images/podcast-mon.png',
+    src: '/images/podcast/podcast-mon.png',
     day: 'Mondays - Alignment',
   },
   {
-    src: '/images/podcast-wed.png',
+    src: '/images/podcast/podcast-wed.png',
     day: 'Wednesdays — Realignment',
   },
   {
-    src: '/images/podcast-fri.png',
+    src: '/images/podcast/podcast-fri.png',
     day: 'Fridays — Renewal',
   },
 ];

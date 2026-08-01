@@ -72,7 +72,7 @@ export function PartnerSection() {
           <Reveal direction="left" delay={0.15}>
             <div className="relative h-96 w-full overflow-hidden rounded-2xl shadow-xl md:h-full md:min-h-[400px]">
               <Image
-                src="/images/events.jpg"
+                src="/images/resources/events.jpg"
                 alt="Partnership and collaboration"
                 fill
                 className="object-cover"

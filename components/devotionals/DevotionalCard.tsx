@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Bookmark, Heart, BookOpen } from 'lucide-react';
 import type { Devotional } from '@/lib/devotionals';
@@ -86,9 +87,11 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
       <div className="h-1.5 bg-gradient-to-r from-gold via-gold-300 to-gold" />
       <div className="flex flex-col gap-6 bg-navy-50/30 p-6 sm:flex-row sm:p-8 lg:p-10">
         <div className="aspect-square h-48 w-full shrink-0 overflow-hidden rounded-2xl shadow-lg sm:w-48">
-          <img
+          <Image
             src={devotional.image}
             alt={`Featured devotional: ${devotional.title}`}
+            width={192}
+            height={192}
             className="h-full w-full object-cover"
           />
         </div>

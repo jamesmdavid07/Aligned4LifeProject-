@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  outputFileTracingRoot: __dirname,
   images: { unoptimized: true },
 };
 

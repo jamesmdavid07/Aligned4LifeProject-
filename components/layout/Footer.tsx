@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Linkedin } from 'lucide-react';
@@ -7,8 +8,12 @@ import { siteConfig, navLinks } from '@/lib/site-data';
 import { Reveal } from '@/components/animations/Reveal';
 
 export function Footer() {
-  const siteUrl = typeof window === 'undefined' ? '/' : window.location.origin;
+  const [siteUrl, setSiteUrl] = useState('/');
   const encodedSiteUrl = encodeURIComponent(siteUrl);
+
+  useEffect(() => {
+    setSiteUrl(window.location.origin);
+  }, []);
 
   return (
     <footer className="bg-gradient-to-br from-navy-600 via-darknavy to-deepnavy">
@@ -28,7 +33,7 @@ export function Footer() {
           <Reveal direction="right">
           <div className="rounded-xl bg-white p-4">
             <Image
-              src="/images/footer-logo.png"
+              src="/images/shared/footer-logo.png"
               alt="Aligned4LifeProject logo"
               width={200}
               height={80}
@@ -64,13 +69,13 @@ export function Footer() {
             >
               <Linkedin size={20} />
             </a>
-            <a
+            <Link
               href="/"
               aria-label="Website"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 hover:bg-gold hover:text-white"
             >
               <span className="text-xs font-bold">Web</span>
-            </a>
+            </Link>
           </div>
         </div>
 

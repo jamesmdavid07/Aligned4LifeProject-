@@ -18,7 +18,7 @@ export function CoursesSection() {
           <Reveal direction="right">
             <div className="relative h-64 w-full overflow-hidden rounded-2xl shadow-lg md:h-80">
               <Image
-                src="/images/courses.jpg"
+                src="/images/resources/courses.jpg"
                 alt="Educational course materials"
                 fill
                 className="object-cover"

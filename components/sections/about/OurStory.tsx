@@ -66,7 +66,7 @@ export function OurStory() {
             <div className="flex flex-col items-center gap-6">
               <div className="relative h-64 w-full max-w-xs">
                 <Image
-                  src="/images/roderic.png"
+                  src="/images/about/roderic.png"
                   alt="Pr. Roderic Bishop, Founder of Aligned4LifeProject"
                   fill
                   className="rounded-2xl object-cover shadow-lg"

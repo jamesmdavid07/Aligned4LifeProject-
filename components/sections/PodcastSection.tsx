@@ -31,7 +31,7 @@ export function PodcastSection() {
             <div className="flex justify-center md:justify-end">
               <div className="relative h-64 w-64 md:h-80 md:w-80">
                 <Image
-                  src="/images/podcast-cover.png"
+                  src="/images/home/podcast-cover.png"
                   alt="Align365 Podcast cover"
                   fill
                   className="rounded-2xl object-cover shadow-xl"

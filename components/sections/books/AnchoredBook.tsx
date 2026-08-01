@@ -36,7 +36,7 @@ export function AnchoredBook() {
             <div className="flex justify-center md:justify-end">
               <div className="relative h-80 w-56 md:h-96 md:w-72">
                 <Image
-                  src="/images/anchored-book.png"
+                  src="/images/books/anchored-book.png"
                   alt="Anchored In Alignment book cover"
                   fill
                   className="rounded-lg object-contain shadow-2xl"

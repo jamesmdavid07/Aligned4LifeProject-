@@ -36,7 +36,7 @@ export function CoachingSection() {
           <Reveal direction="left" delay={0.15}>
             <div className="relative h-64 w-full overflow-hidden rounded-2xl shadow-lg md:h-80">
               <Image
-                src="/images/coaching.jpg"
+                src="/images/resources/coaching.jpg"
                 alt="Coaching session"
                 fill
                 className="object-cover"

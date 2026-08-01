@@ -6,15 +6,15 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/animations/Revea
 
 const helpCards = [
   {
-    src: '/images/help-1.png',
+    src: '/images/home/help-1.png',
     alt: 'Alignment through biblical truth',
   },
   {
-    src: '/images/help-2.png',
+    src: '/images/home/help-2.png',
     alt: 'Healing and restoration',
   },
   {
-    src: '/images/help-3.png',
+    src: '/images/home/help-3.png',
     alt: 'Transformation and purpose',
   },
 ];

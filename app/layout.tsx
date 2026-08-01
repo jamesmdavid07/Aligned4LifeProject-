@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       'Helping individuals realign their lives with God\'s purpose through truth, healing, and transformation.',
     images: [
       {
-        url: '/images/logo.png',
+        url: '/images/shared/logo.png',
       },
     ],
   },
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: '/images/logo.png',
+        url: '/images/shared/logo.png',
       },
     ],
   },

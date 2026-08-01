@@ -27,7 +27,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex-shrink-0" aria-label="Aligned4LifeProject home">
           <Image
-            src="/images/logo.png"
+            src="/images/shared/logo.png"
             alt="Aligned4LifeProject logo"
             width={200}
             height={44}

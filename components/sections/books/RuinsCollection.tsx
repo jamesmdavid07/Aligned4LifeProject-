@@ -5,17 +5,17 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/animations/Revea
 
 const ruinsBooks = [
   {
-    src: '/images/ruins-main.png',
+    src: '/images/books/ruins-main.png',
     title: 'Main Book',
     href: 'https://a.co/d/0bqgzp7t',
   },
   {
-    src: '/images/ruins-workbook.png',
+    src: '/images/books/ruins-workbook.png',
     title: 'Companion WorkBook',
     href: 'https://amzn.asia/d/0gShxZOf',
   },
   {
-    src: '/images/ruins-prayer.png',
+    src: '/images/books/ruins-prayer.png',
     title: 'Prayer Book',
     href: 'https://a.co/d/0bqgzp7t',
   },

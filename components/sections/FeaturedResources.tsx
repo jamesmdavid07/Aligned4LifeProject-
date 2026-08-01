@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Reveal } from '@/components/animations/Reveal';
 
 export function FeaturedResources() {
@@ -21,9 +22,11 @@ export function FeaturedResources() {
         <div className="mx-auto max-w-site">
           <Reveal delay={0.1}>
             <div className="flex justify-center">
-              <img
-                src="/images/featured-resources.png"
+              <Image
+                src="/images/home/featured-resources.png"
                 alt="Featured resources banner"
+                width={1600}
+                height={806}
                 className="h-auto w-full max-w-site"
               />
             </div>

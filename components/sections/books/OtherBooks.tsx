@@ -5,7 +5,7 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/animations/Revea
 
 const otherBooks = [
   {
-    src: '/images/dangerous-liaisons.png',
+    src: '/images/books/dangerous-liaisons.png',
     title: 'Dangerous Liaisons',
     subtitle: 'How People, Patterns, and Partnerships Derail Devotion',
     description:
@@ -13,7 +13,7 @@ const otherBooks = [
     href: 'https://a.co/d/0dZnBdw3',
   },
   {
-    src: '/images/trauma-triggers.png',
+    src: '/images/books/trauma-triggers.png',
     title: 'Trauma, Triggers, and Transformation',
     subtitle: 'Where Biblical Truth Meets Emotional Recovery',
     description:
@@ -21,7 +21,7 @@ const otherBooks = [
     href: null,
   },
   {
-    src: '/images/purposeful-pursuit.png',
+    src: '/images/books/purposeful-pursuit.png',
     title: 'Purposeful Pursuit',
     subtitle: 'The 10 Pillars of Spiritually Aligned People',
     description:

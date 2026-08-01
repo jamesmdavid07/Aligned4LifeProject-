@@ -1,11 +1,16 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Facebook, Linkedin, Share2 } from 'lucide-react';
 
 export function ShareButtons({ title }: { title: string }) {
-  const shareUrl = typeof window === 'undefined' ? '' : window.location.href;
+  const [shareUrl, setShareUrl] = useState('');
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title);
+
+  useEffect(() => {
+    setShareUrl(window.location.href);
+  }, []);
 
   return (
     <div className="flex flex-wrap items-center gap-3" aria-label="Share devotional">
