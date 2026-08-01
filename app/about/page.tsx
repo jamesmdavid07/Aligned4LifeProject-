@@ -1,7 +1,7 @@
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { PageHero } from '@/components/sections/PageHero';
 import { OurStory } from '@/components/sections/about/OurStory';
-import { MissionSection, VisionSection } from '@/components/sections/about/MissionVision';
+import { MissionVisionSection } from '@/components/sections/about/MissionVision';
 import { CoreValues } from '@/components/sections/about/CoreValues';
 import { AlignmentCTA } from '@/components/sections/about/AlignmentCTA';
 
@@ -20,12 +20,11 @@ export default function AboutPage() {
             About <span className="text-gold">Aligned4LifeProject</span>
           </>
         }
-        subtitle=" Dedicated to realigning lives with God's purpose through truth, healing, and transformation."
-        subtitleColor="#FFFFFFBF"
+        subtitle="Dedicated to realigning lives with God's purpose through truth, healing, and transformation."
+        breadcrumb="About"
       />
       <OurStory />
-      <MissionSection />
-      <VisionSection />
+      <MissionVisionSection />
       <CoreValues />
       <AlignmentCTA />
     </SiteLayout>

@@ -1,50 +1,97 @@
 'use client';
 
-import { Reveal } from '@/components/animations/Reveal';
-import { Headphones } from 'lucide-react';
+import Image from 'next/image';
+import { Reveal, StaggerGroup, StaggerItem } from '@/components/animations/Reveal';
+
+const episodes = [
+  {
+    title: 'Alignment',
+    day: 'Monday',
+    src: '/images/podcast/podcast-mon.png',
+    embedUrl: 'https://open.spotify.com/embed/episode/3wfeV03opBWFwo7evDwtlS',
+  },
+  {
+    title: 'Realignment',
+    day: 'Wednesday',
+    src: '/images/podcast/podcast-wed.png',
+    embedUrl: 'https://open.spotify.com/embed/episode/5kV2UHagaMjDh8QUObPc6r',
+  },
+  {
+    title: 'Renewal',
+    day: 'Friday',
+    src: '/images/podcast/podcast-fri.png',
+    embedUrl: 'https://open.spotify.com/embed/episode/191aO1uwu5Niz90l7WQp8t',
+  },
+];
 
 export function LatestEpisodes() {
   return (
-    <section className="bg-navy-600 py-12 md:py-16">
-      <div className="mx-auto max-w-site px-4 md:px-8 lg:px-12">
+    <section className="relative overflow-hidden bg-navy-600 py-14 md:py-20">
+      {/* Decorative glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-10%] top-[10%] h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute right-[-5%] bottom-[10%] h-96 w-96 rounded-full bg-navy-300/10 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-site px-4 md:px-8 lg:px-12">
         <Reveal>
-          <h2 className="text-center font-nunito text-3xl font-bold text-white md:text-4xl">
+          <p className="text-center font-raleway text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+            Listen Now
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="mt-3 text-center font-nunito text-3xl font-bold text-white md:text-4xl">
             Latest Episodes
           </h2>
         </Reveal>
-        <Reveal delay={0.15}>
-          <p className="mx-auto mt-4 max-w-2xl text-center font-roboto text-sm text-lightgray md:text-base">
-            New episodes are released three times a week. Check back soon for the latest
-            conversations.
+        <Reveal delay={0.2}>
+          <p className="mx-auto mt-4 max-w-2xl text-center font-roboto text-base text-lightgray md:text-lg">
+            New episodes are released three times a week. Press play and listen right here.
           </p>
         </Reveal>
 
-        {/* Placeholder episode cards */}
-        <Reveal delay={0.3}>
-          <div className="mt-10 flex flex-col items-center gap-6">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="flex w-full max-w-2xl items-center gap-4 rounded-xl bg-navy-700/50 p-5 shadow-md transition-all duration-300 hover:bg-navy-700/70"
-              >
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
-                  <Headphones size={24} />
+        {/* Episode cards */}
+        <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3 md:gap-8" stagger={0.15}>
+          {episodes.map((episode) => (
+            <StaggerItem key={episode.title}>
+              <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-navy-700/40 shadow-lg transition-all duration-300 hover:border-gold/30 hover:shadow-2xl">
+                {/* Artwork header */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <Image
+                    src={episode.src}
+                    alt={`${episode.title} podcast artwork`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/95 via-navy-900/40 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="font-raleway text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+                      {episode.day}s
+                    </p>
+                    <h3 className="mt-1 font-nunito text-2xl font-bold text-white">
+                      {episode.title}
+                    </h3>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <p className="font-nunito text-base font-bold text-white">
-                    Episode Coming Soon
-                  </p>
-                  <p className="font-roboto text-sm text-lightgray">
-                    Stay tuned for new Align365 episodes
-                  </p>
+
+                {/* Embedded Spotify player */}
+                <div className="flex flex-1 flex-col justify-center bg-white/5 p-4">
+                  <iframe
+                    src={episode.embedUrl}
+                    width="100%"
+                    height="232"
+                    frameBorder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    className="rounded-lg"
+                    title={`${episode.title} on Spotify`}
+                  />
                 </div>
-                <span className="rounded-full bg-navy-800 px-3 py-1 text-xs font-semibold text-lightgray">
-                  Upcoming
-                </span>
               </div>
-            ))}
-          </div>
-        </Reveal>
+            </StaggerItem>
+          ))}
+        </StaggerGroup>
       </div>
     </section>
   );

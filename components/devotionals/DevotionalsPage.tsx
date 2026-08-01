@@ -38,14 +38,14 @@ export function DevotionalsPage() {
   return (
     <>
       <HeroBanner />
-      <main className="bg-navy-50/60 py-12 md:py-16">
+      <main className="bg-navy-50 py-12 md:py-16">
         <div className="space-y-8">
           <section id="featured-devotional" className="scroll-mt-24" aria-labelledby="featured-heading">
             <div className="mx-auto mb-5 flex w-full max-w-site flex-wrap items-end justify-between gap-4 px-4 md:px-8 lg:px-12">
               <div>
                 <p className="font-raleway text-sm font-bold uppercase tracking-[0.25em] text-gold">Daily nourishment</p>
                 <h2 id="featured-heading" className="mt-2 font-nunito text-3xl font-extrabold text-navy-600 sm:text-4xl">
-                  {isUnavailable ? "Devotional not yet available" : isToday ? "Today's Devotional" : `Devotional for ${formatDevotionalDate(displayedDevotional.date)}`}
+                  {isUnavailable ? "Devotional not yet available" : isToday ? `Today's Devotional - ${formatDevotionalDate(displayedDevotional.date)}` : `Devotional for ${formatDevotionalDate(displayedDevotional.date)}`}
                 </h2>
               </div>
               {isUnavailable && (

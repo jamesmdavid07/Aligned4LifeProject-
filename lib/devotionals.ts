@@ -16,7 +16,7 @@ export interface Devotional {
 export const devotionals: Devotional[] = devotional2026;
 
 export function getTodayDate() {
-  return new Date().toISOString().slice(0, 10);
+  return new Date().toLocaleDateString('en-CA');
 }
 
 export function getLatestPublished(date = getTodayDate()) {

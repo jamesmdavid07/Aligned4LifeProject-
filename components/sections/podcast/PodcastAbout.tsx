@@ -6,21 +6,24 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/animations/Revea
 const schedule = [
   {
     src: '/images/podcast/podcast-mon.png',
-    day: 'Mondays - Alignment',
+    day: 'Mondays',
+    title: 'Alignment',
   },
   {
     src: '/images/podcast/podcast-wed.png',
-    day: 'Wednesdays — Realignment',
+    day: 'Wednesdays',
+    title: 'Realignment',
   },
   {
     src: '/images/podcast/podcast-fri.png',
-    day: 'Fridays — Renewal',
+    day: 'Fridays',
+    title: 'Renewal',
   },
 ];
 
 export function PodcastAbout() {
   return (
-    <section className="bg-white py-12 md:py-16">
+    <section className="bg-white py-14 md:py-20">
       <div className="mx-auto max-w-site px-4 md:px-8 lg:px-12">
         {/* About text */}
         <Reveal>
@@ -30,26 +33,30 @@ export function PodcastAbout() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mx-auto mt-4 max-w-3xl text-center font-roboto text-base text-navy-600 md:text-lg">
-            Welcome to the Align365 Podcast. Our podcast is releases three times a week:
+            Welcome to the Align365 Podcast. We release new episodes three times a week to
+            help you grow, reflect, and stay aligned with God&apos;s purpose.
           </p>
         </Reveal>
 
         {/* Schedule cards */}
-        <StaggerGroup className="mt-10 grid gap-8 sm:grid-cols-3" stagger={0.15}>
+        <StaggerGroup className="mt-12 grid gap-8 sm:grid-cols-3 md:gap-10" stagger={0.15}>
           {schedule.map((item) => (
-            <StaggerItem key={item.day}>
+            <StaggerItem key={`${item.day}-${item.title}`}>
               <div className="group flex flex-col items-center">
                 <div className="relative h-48 w-48 overflow-hidden rounded-2xl shadow-lg transition-transform duration-500 group-hover:scale-105 md:h-56 md:w-56">
                   <Image
                     src={item.src}
-                    alt={item.day}
+                    alt={`${item.title} podcast artwork`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 192px, 224px"
                   />
                 </div>
-                <h3 className="mt-4 text-center font-nunito text-xl font-bold text-navy-600">
+                <p className="mt-4 font-raleway text-xs font-semibold uppercase tracking-[0.25em] text-gold">
                   {item.day}
+                </p>
+                <h3 className="mt-1 font-nunito text-xl font-bold text-navy-600">
+                  {item.title}
                 </h3>
               </div>
             </StaggerItem>

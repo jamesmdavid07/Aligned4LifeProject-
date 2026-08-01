@@ -35,11 +35,11 @@ export function CoreValues() {
   return (
     <>
       {/* Values heading */}
-      <section className="bg-white py-8 md:py-10">
+      <section className="bg-white pt-14 md:pt-20">
         <div className="mx-auto max-w-site px-4 md:px-8 lg:px-12">
           <Reveal>
-            <p className="text-center font-raleway text-sm font-semibold tracking-[0.3em] text-gold">
-              W H Y&nbsp; W E&nbsp; S T A N D&nbsp; F O R
+            <p className="text-center font-raleway text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+              Why We Stand For
             </p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -51,19 +51,23 @@ export function CoreValues() {
       </section>
 
       {/* Values list */}
-      <section className="bg-white pb-16">
+      <section className="bg-white pb-16 md:pb-20">
         <div className="mx-auto max-w-site px-4 md:px-8 lg:px-12">
           <StaggerGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.12}>
             {values.map((value) => (
               <StaggerItem key={value.number}>
-                <div className="group h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-md transition-all duration-300 hover:shadow-xl hover:border-gold/30">
-                  <p className="font-nunito text-4xl font-extrabold text-navy-100 transition-colors group-hover:text-gold">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-md transition-all duration-300 hover:border-gold/30 hover:shadow-xl">
+                  <span
+                    className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-navy-50/60 transition-colors duration-300 group-hover:bg-gold/10"
+                    aria-hidden="true"
+                  />
+                  <p className="relative font-nunito text-4xl font-extrabold text-navy-100 transition-colors group-hover:text-gold">
                     {value.number}
                   </p>
-                  <h3 className="mt-3 font-nunito text-xl font-bold text-navy-600">
+                  <h3 className="relative mt-3 font-nunito text-xl font-bold text-navy-600">
                     {value.title}
                   </h3>
-                  <p className="mt-2 font-roboto text-sm leading-relaxed text-textgray">
+                  <p className="relative mt-2 font-roboto text-sm leading-relaxed text-textgray">
                     {value.description}
                   </p>
                 </div>

@@ -42,7 +42,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-nunito text-lg font-bold text-deepnavy transition-colors duration-200 hover:text-gold"
+              className="font-nunito text-lg font-bold text-navy-600 transition-colors duration-200 hover:text-gold"
             >
               {link.label}
             </Link>
@@ -51,15 +51,15 @@ export function Header() {
 
         {/* CTA button - desktop */}
         <Link
-          href="/#section-shared-header"
+          href="/contact"
           className="hidden rounded-md bg-gold px-6 py-2.5 font-raleway text-sm font-bold text-white transition-all duration-300 hover:shadow-lg hover:brightness-110 lg:inline-block"
         >
-          Get Started
+          Contact Us
         </Link>
 
         {/* Mobile menu button */}
         <button
-          className="rounded-md p-2 text-deepnavy lg:hidden"
+          className="rounded-md p-2 text-navy-600 lg:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
           aria-expanded={mobileOpen}
@@ -84,18 +84,18 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="rounded-md px-4 py-3 font-nunito text-base font-bold text-deepnavy transition-colors hover:bg-navy-50 hover:text-gold"
+                  className="rounded-md px-4 py-3 font-nunito text-base font-bold text-navy-600 transition-colors hover:bg-navy-50 hover:text-gold"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
               <Link
-                href="/#section-shared-header"
+                href="/contact"
                 className="mt-2 rounded-md bg-gold px-6 py-3 text-center font-raleway text-base font-bold text-white"
                 onClick={() => setMobileOpen(false)}
               >
-                Get Started
+                Contact Us
               </Link>
             </div>
           </motion.nav>

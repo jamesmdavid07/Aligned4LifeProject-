@@ -33,7 +33,7 @@
     text-wrap: balance;
   }
   .hero-gradient {
-    background: linear-gradient(135deg, #1A3A70 0%, #253763 50%, #0A195F 100%);
+    background: #1A3A71;
   }
   .section-dark-gradient {
     background: linear-gradient(180deg, #253763 0%, #1A3A71 100%);
