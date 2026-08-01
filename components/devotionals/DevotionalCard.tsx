@@ -24,7 +24,7 @@ function renderContentParagraphs(content: string) {
       const text = trimmed.replace(/^Today's Declaration:\n?/, '');
       return (
         <div key={idx} className="rounded-2xl border border-navy-200 bg-gradient-to-br from-navy-50 to-white px-6 py-5 text-center">
-          <p className="font-nunito text-sm font-bold uppercase tracking-wider text-navy-600">Today's Declaration</p>
+          <p className="font-nunito text-sm font-bold uppercase tracking-wider text-navy-600">Today&apos;s Declaration</p>
           <p className="mt-2 font-nunito text-lg font-bold leading-8 text-navy-700">&ldquo;{text.replace(/^["']|["']$/g, '')}&rdquo;</p>
         </div>
       );

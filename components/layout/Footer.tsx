@@ -7,6 +7,9 @@ import { siteConfig, navLinks } from '@/lib/site-data';
 import { Reveal } from '@/components/animations/Reveal';
 
 export function Footer() {
+  const siteUrl = typeof window === 'undefined' ? '/' : window.location.origin;
+  const encodedSiteUrl = encodeURIComponent(siteUrl);
+
   return (
     <footer className="bg-gradient-to-br from-navy-600 via-darknavy to-deepnavy">
       {/* Back home button */}
@@ -35,7 +38,7 @@ export function Footer() {
           </Reveal>
           <div className="flex items-center gap-4">
             <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://aligned4lifeproject.gr-site.com/"
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodedSiteUrl}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -44,7 +47,7 @@ export function Footer() {
               <Facebook size={20} />
             </a>
             <a
-              href="https://twitter.com/intent/tweet?url=https://aligned4lifeproject.gr-site.com/"
+              href={`https://twitter.com/intent/tweet?url=${encodedSiteUrl}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X"
@@ -53,7 +56,7 @@ export function Footer() {
               <span className="text-sm font-bold">X</span>
             </a>
             <a
-              href="https://www.linkedin.com/shareArticle?mini=true&url=https://aligned4lifeproject.gr-site.com/"
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedSiteUrl}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -62,7 +65,7 @@ export function Footer() {
               <Linkedin size={20} />
             </a>
             <a
-              href="https://aligned4lifeproject.gr-site.com/"
+              href="/"
               aria-label="Website"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 hover:bg-gold hover:text-white"
             >

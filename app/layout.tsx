@@ -30,8 +30,10 @@ const montserrat = Montserrat({
   weight: ['400', '500', '600', '700'],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://aligned4lifeproject.gr-site.com'),
+  metadataBase: new URL(siteUrl),
   title: 'Aligned4LifeProject | Anchored in Alignment',
   description:
     'Helping individuals realign their lives with God\'s purpose through truth, healing, and transformation.',
