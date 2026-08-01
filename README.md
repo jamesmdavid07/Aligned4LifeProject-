@@ -28,3 +28,4 @@ Start command, if Hostinger is running the Next.js app with Node:
 ```bash
 npm run start
 ```
+# Aligned4LifeProject-
