@@ -15,8 +15,12 @@ type DbDevotional = {
   scripture: string;
   image: string;
   content: string;
+  ellen_white_insight?: string;
   reflection: string;
+  todays_declaration?: string;
+  appeal?: string;
   prayer: string;
+  full_key_verse?: string;
   publish_date: string;
   date: string;
 };
@@ -29,9 +33,13 @@ function mapDbDevotional(row: DbDevotional): Devotional {
     scripture: row.scripture,
     image: row.image || '/images/shared/logo.png',
     content: row.content,
+    ellenWhiteInsight: row.ellen_white_insight,
     reflection: row.reflection,
+    todaysDeclaration: row.todays_declaration,
+    appeal: row.appeal,
     prayer: row.prayer,
-    keyVerse: row.scripture,
+    fullKeyVerse: row.full_key_verse,
+    keyVerse: row.full_key_verse || row.scripture,
     readingTime: Math.max(2, Math.ceil((row.content?.split(/\s+/).filter(Boolean).length || 0) / 150)),
   };
 }

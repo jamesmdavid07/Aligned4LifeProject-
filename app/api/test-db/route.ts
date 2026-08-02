@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { testConnection } from '@/lib/db';
+import { testConnection, connectionTarget } from '@/lib/db';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -20,7 +20,7 @@ export async function GET() {
 
     if (!result.ok) {
       return NextResponse.json(
-        { success: false, message: 'Database connection failed.' },
+        { success: false, message: 'Database connection failed.', target: connectionTarget },
         { status: 500 },
       );
     }
@@ -28,6 +28,7 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       message: 'Database connected successfully',
+      target: connectionTarget,
     });
   } catch (error) {
     console.error('DB test failed:', error);
@@ -35,6 +36,7 @@ export async function GET() {
       {
         success: false,
         message: 'Database connection failed.',
+        target: connectionTarget,
         error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 },

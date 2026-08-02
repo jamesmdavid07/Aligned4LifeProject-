@@ -33,7 +33,7 @@ export async function GET(request: Request) {
     const requestedDate = normalizeDateValue(searchParams.get('date')?.trim());
     const id = searchParams.get('id')?.trim();
 
-    let query = `SELECT id, title, scripture, image, content, reflection, prayer, publish_date
+    let query = `SELECT id, title, scripture, image, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, full_key_verse, publish_date
        FROM devotionals`;
     const values: Array<string | number> = [];
 
@@ -58,8 +58,12 @@ export async function GET(request: Request) {
         scripture: String(row.scripture ?? ''),
         image: String(row.image ?? ''),
         content: String(row.content ?? ''),
+        ellenWhiteInsight: String(row.ellen_white_insight ?? ''),
         reflection: String(row.reflection ?? ''),
+        todaysDeclaration: String(row.todays_declaration ?? ''),
+        appeal: String(row.appeal ?? ''),
         prayer: String(row.prayer ?? ''),
+        fullKeyVerse: String(row.full_key_verse ?? ''),
         publish_date: publishDate ?? '',
         date: publishDate ?? '',
       };
@@ -115,8 +119,12 @@ export async function PUT(request: Request) {
     const scripture = typeof body?.scripture === 'string' ? body.scripture.trim() : '';
     const image = typeof body?.image === 'string' ? body.image.trim() : '';
     const content = typeof body?.content === 'string' ? body.content.trim() : '';
+    const ellenWhiteInsight = typeof body?.ellenWhiteInsight === 'string' ? body.ellenWhiteInsight.trim() : '';
     const reflection = typeof body?.reflection === 'string' ? body.reflection.trim() : '';
+    const todaysDeclaration = typeof body?.todaysDeclaration === 'string' ? body.todaysDeclaration.trim() : '';
+    const appeal = typeof body?.appeal === 'string' ? body.appeal.trim() : '';
     const prayer = typeof body?.prayer === 'string' ? body.prayer.trim() : '';
+    const fullKeyVerse = typeof body?.fullKeyVerse === 'string' ? body.fullKeyVerse.trim() : '';
     const publishDate = typeof body?.publish_date === 'string' ? body.publish_date.trim() : '';
 
     if (!id || !title || !scripture || !content || !publishDate) {
@@ -127,10 +135,10 @@ export async function PUT(request: Request) {
     }
 
     await pool.execute(
-      `UPDATE devotionals
-       SET title = ?, scripture = ?, image = ?, content = ?, reflection = ?, prayer = ?, publish_date = ?, updated_at = NOW()
-       WHERE id = ?`,
-      [title, scripture, image, content, reflection, prayer, publishDate, id],
+       `UPDATE devotionals
+        SET title = ?, scripture = ?, image = ?, content = ?, ellen_white_insight = ?, reflection = ?, todays_declaration = ?, appeal = ?, prayer = ?, full_key_verse = ?, publish_date = ?, updated_at = NOW()
+        WHERE id = ?`,
+      [title, scripture, image, content, ellenWhiteInsight, reflection, todaysDeclaration, appeal, prayer, fullKeyVerse, publishDate, id],
     );
 
     return NextResponse.json({ success: true, message: 'Devotional updated successfully.' });
@@ -155,8 +163,12 @@ export async function POST(request: Request) {
     const scripture = typeof body?.scripture === 'string' ? body.scripture.trim() : '';
     const image = typeof body?.image === 'string' ? body.image.trim() : '';
     const content = typeof body?.content === 'string' ? body.content.trim() : '';
+    const ellenWhiteInsight = typeof body?.ellenWhiteInsight === 'string' ? body.ellenWhiteInsight.trim() : '';
     const reflection = typeof body?.reflection === 'string' ? body.reflection.trim() : '';
+    const todaysDeclaration = typeof body?.todaysDeclaration === 'string' ? body.todaysDeclaration.trim() : '';
+    const appeal = typeof body?.appeal === 'string' ? body.appeal.trim() : '';
     const prayer = typeof body?.prayer === 'string' ? body.prayer.trim() : '';
+    const fullKeyVerse = typeof body?.fullKeyVerse === 'string' ? body.fullKeyVerse.trim() : '';
     const publishDate = typeof body?.publish_date === 'string' ? body.publish_date.trim() : '';
 
     if (!title || !scripture || !content || !publishDate) {
@@ -167,9 +179,9 @@ export async function POST(request: Request) {
     }
 
     const [result] = await pool.execute(
-      `INSERT INTO devotionals (title, scripture, image, content, reflection, prayer, publish_date, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
-      [title, scripture, image, content, reflection, prayer, publishDate],
+      `INSERT INTO devotionals (title, scripture, image, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, full_key_verse, publish_date, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+      [title, scripture, image, content, ellenWhiteInsight, reflection, todaysDeclaration, appeal, prayer, fullKeyVerse, publishDate],
     );
 
     const insertId = (result as { insertId?: number }).insertId ?? null;

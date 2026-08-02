@@ -7,8 +7,12 @@ export interface Devotional {
   scripture: string;
   image: string;
   content: string;
+  ellenWhiteInsight?: string;
   reflection: string;
+  todaysDeclaration?: string;
+  appeal?: string;
   prayer: string;
+  fullKeyVerse?: string;
   keyVerse: string;
   readingTime: number;
 }

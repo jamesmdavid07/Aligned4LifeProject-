@@ -75,6 +75,12 @@ function renderContentParagraphs(content: string) {
   });
 }
 
+function renderOptionalParagraphs(content: string) {
+  return content.split('\n\n').map((paragraph, idx) => (
+    <p key={idx} className="leading-7">{paragraph.trim()}</p>
+  ));
+}
+
 export function DevotionalCard({ devotional }: { devotional: Devotional }) {
   return (
     <motion.article
@@ -115,6 +121,12 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
       </div>
       <div className="space-y-6 px-6 pb-6 font-roboto text-base leading-8 text-textgray sm:px-8 lg:px-10">
         {renderContentParagraphs(devotional.content)}
+        {devotional.ellenWhiteInsight ? (
+          <div className="rounded-2xl border-l-4 border-gold bg-gold-50/70 px-6 py-5 italic text-navy-700">
+            <h3 className="font-nunito text-sm font-bold uppercase tracking-wider text-gold not-italic">Ellen White Insight</h3>
+            <div className="mt-2 space-y-3">{renderOptionalParagraphs(devotional.ellenWhiteInsight)}</div>
+          </div>
+        ) : null}
         <div className="rounded-2xl border-l-4 border-gold bg-gold-50 px-6 py-5">
           <div className="flex items-center gap-2">
             <Bookmark size={16} className="text-gold" aria-hidden="true" />
@@ -122,6 +134,18 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
           </div>
           <p className="mt-2 leading-7 italic text-navy-700">{devotional.reflection}</p>
         </div>
+        {devotional.todaysDeclaration ? (
+          <div className="rounded-2xl border border-navy-200 bg-gradient-to-br from-navy-50 to-white px-6 py-5 text-center">
+            <h3 className="font-nunito text-sm font-bold uppercase tracking-wider text-navy-600">Today&apos;s Declaration</h3>
+            <div className="mt-2 space-y-3 font-nunito text-lg font-bold leading-8 text-navy-700">{renderOptionalParagraphs(devotional.todaysDeclaration)}</div>
+          </div>
+        ) : null}
+        {devotional.appeal ? (
+          <div className="rounded-2xl border border-gold-200 bg-white px-6 py-5">
+            <h3 className="font-nunito text-sm font-bold uppercase tracking-wider text-gold">The Appeal</h3>
+            <div className="mt-2 space-y-3">{renderOptionalParagraphs(devotional.appeal)}</div>
+          </div>
+        ) : null}
         <div className="rounded-2xl bg-navy-50 px-6 py-5">
           <div className="flex items-center gap-2">
             <Heart size={16} className="text-gold" aria-hidden="true" />
@@ -129,11 +153,15 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
           </div>
           <p className="mt-2 leading-7 text-textgray">{devotional.prayer}</p>
         </div>
-        <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
+        {devotional.fullKeyVerse ? <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
+          <BookOpen size={20} className="mx-auto text-gold-200" aria-hidden="true" />
+          <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold-200">Full Key Verse</p>
+          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.fullKeyVerse}&rdquo;</p>
+        </div> : <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
           <BookOpen size={20} className="mx-auto text-gold-200" aria-hidden="true" />
           <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold-200">Key Verse</p>
           <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyVerse || devotional.scripture}&rdquo;</p>
-        </div>
+        </div>}
       </div>
       <div className="border-t border-navy-100 px-6 pb-8 pt-5 sm:px-8 lg:px-10">
         <ShareButtons title={devotional.title} />

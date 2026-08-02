@@ -8,8 +8,12 @@ type FormState = {
   imageFile: File | null;
   imagePreview: string;
   content: string;
+  ellenWhiteInsight: string;
   reflection: string;
+  todaysDeclaration: string;
+  appeal: string;
   prayer: string;
+  fullKeyVerse: string;
   publishDate: string;
 };
 
@@ -19,8 +23,12 @@ const initialFormState = {
   imageFile: null as File | null,
   imagePreview: '',
   content: '',
+  ellenWhiteInsight: '',
   reflection: '',
+  todaysDeclaration: '',
+  appeal: '',
   prayer: '',
+  fullKeyVerse: '',
   publishDate: '',
 };
 
@@ -84,8 +92,12 @@ export default function NewDevotionalPage() {
           scripture: formData.scripture,
           image: imageUrl,
           content: formData.content,
+          ellenWhiteInsight: formData.ellenWhiteInsight,
           reflection: formData.reflection,
+          todaysDeclaration: formData.todaysDeclaration,
+          appeal: formData.appeal,
           prayer: formData.prayer,
+          fullKeyVerse: formData.fullKeyVerse,
           publish_date: formData.publishDate,
         }),
       });
@@ -204,6 +216,21 @@ export default function NewDevotionalPage() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="space-y-2">
+              <label htmlFor="ellenWhiteInsight" className="text-sm font-medium text-slate-200">Ellen White Insight</label>
+              <textarea id="ellenWhiteInsight" name="ellenWhiteInsight" value={formData.ellenWhiteInsight} onChange={handleChange} placeholder="Add an Ellen White insight..." rows={6} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="todaysDeclaration" className="text-sm font-medium text-slate-200">Today&apos;s Declaration</label>
+              <textarea id="todaysDeclaration" name="todaysDeclaration" value={formData.todaysDeclaration} onChange={handleChange} placeholder="Add today's declaration..." rows={6} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="appeal" className="text-sm font-medium text-slate-200">Appeal</label>
+              <textarea id="appeal" name="appeal" value={formData.appeal} onChange={handleChange} placeholder="Add an appeal..." rows={6} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+            </div>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="space-y-2">
               <label htmlFor="reflection" className="text-sm font-medium text-slate-200">
                 Reflection
               </label>
@@ -247,6 +274,11 @@ export default function NewDevotionalPage() {
               className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
               required
             />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="fullKeyVerse" className="text-sm font-medium text-slate-200">Full Key Verse</label>
+            <textarea id="fullKeyVerse" name="fullKeyVerse" value={formData.fullKeyVerse} onChange={handleChange} placeholder="Enter the complete Scripture verse text..." rows={4} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
           </div>
 
           <div className="flex items-center justify-end border-t border-slate-800 pt-6">
