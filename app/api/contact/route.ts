@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   let body: { name?: string; email?: string; interest?: string; other?: string };
   try {
@@ -20,6 +18,16 @@ export async function POST(request: Request) {
     );
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_EMAIL;
+
+  if (!apiKey || !to) {
+    return NextResponse.json(
+      { success: false, message: 'Email service is not configured.' },
+      { status: 500 },
+    );
+  }
+
   const message = [
     `Name: ${name.trim()}`,
     `Email: ${email.trim()}`,
@@ -30,9 +38,10 @@ export async function POST(request: Request) {
     .join('\n');
 
   try {
+    const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
       from: 'r.bishop00@icloud.com',
-      to: process.env.CONTACT_EMAIL ?? '',
+      to,
       subject: `New contact form submission from ${name.trim()}`,
       text: message,
     });
