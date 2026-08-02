@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   let body: { name?: string; email?: string; interest?: string; other?: string };
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
     .join('\n');
 
   try {
+    const { Resend } = await import('resend');
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
       from: 'r.bishop00@icloud.com',
