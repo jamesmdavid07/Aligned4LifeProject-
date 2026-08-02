@@ -167,25 +167,25 @@ export default function EditDevotionalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl rounded-2xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl shadow-black/30 sm:p-8 lg:p-10">
+    <div className="min-h-screen bg-navy-600 px-4 py-10 text-white sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-navy-700/60 p-6 shadow-2xl shadow-black/30 sm:p-8 lg:p-10">
         <Link
           href="/admin/devotionals"
-          className="mb-6 inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 transition hover:border-amber-500 hover:text-amber-400"
+          className="mb-6 inline-flex items-center gap-2 rounded-lg border border-white/20 px-3 py-2 text-sm font-semibold text-navy-100 transition hover:border-gold hover:text-gold"
         >
           <ArrowLeft size={16} aria-hidden="true" />
           Back to Devotionals
         </Link>
-        <div className="mb-8 border-b border-slate-800 pb-6">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-amber-400">Admin Dashboard</p>
+        <div className="mb-8 border-b border-white/10 pb-6">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-gold">Admin Dashboard</p>
           <h1 className="text-3xl font-semibold text-white sm:text-4xl">Edit Devotional</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400 sm:text-base">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-navy-100 sm:text-base">
             Update the devotional content and image for this existing entry.
           </p>
         </div>
 
         {isLoading ? (
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-6 text-sm text-slate-400">Loading devotional…</div>
+          <div className="rounded-xl border border-white/10 bg-navy-800/60 px-4 py-6 text-sm text-navy-100">Loading devotional…</div>
         ) : null}
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -193,8 +193,8 @@ export default function EditDevotionalPage() {
             <div
               className={`rounded-xl border px-4 py-3 text-sm ${
                 status.type === 'success'
-                  ? 'border-emerald-700 bg-emerald-950/40 text-emerald-300'
-                  : 'border-rose-700 bg-rose-950/40 text-rose-300'
+                  ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-200'
+                  : 'border-rose-400/60 bg-rose-500/15 text-rose-200'
               }`}
             >
               {status.message}
@@ -203,51 +203,51 @@ export default function EditDevotionalPage() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="space-y-2">
-              <label htmlFor="title" className="text-sm font-medium text-slate-200">Title</label>
+              <label htmlFor="title" className="text-sm font-medium text-navy-100">Title</label>
               <input
                 id="title"
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Enter devotional title"
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="scripture" className="text-sm font-medium text-slate-200">Scripture</label>
+              <label htmlFor="scripture" className="text-sm font-medium text-navy-100">Scripture</label>
               <input
                 id="scripture"
                 name="scripture"
                 value={formData.scripture}
                 onChange={handleChange}
                 placeholder="e.g. Psalm 23:1"
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="imageFile" className="text-sm font-medium text-slate-200">Image Upload</label>
+            <label htmlFor="imageFile" className="text-sm font-medium text-navy-100">Image Upload</label>
             <input
               id="imageFile"
               name="imageFile"
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+              className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
             />
             {formData.imagePreview ? (
-              <div className="mt-3 overflow-hidden rounded-xl border border-slate-800">
+              <div className="mt-3 overflow-hidden rounded-xl border border-white/10">
                 <img src={formData.imagePreview} alt="Current devotional preview" className="h-48 w-full object-cover" />
               </div>
             ) : null}
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="content" className="text-sm font-medium text-slate-200">Devotional Content</label>
+            <label htmlFor="content" className="text-sm font-medium text-navy-100">Devotional Content</label>
             <textarea
               id="content"
               name="content"
@@ -255,29 +255,29 @@ export default function EditDevotionalPage() {
               onChange={handleChange}
               placeholder="Write the devotional body here..."
               rows={10}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+              className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
               required
             />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="space-y-2">
-              <label htmlFor="ellenWhiteInsight" className="text-sm font-medium text-slate-200">Ellen White Insight</label>
-              <textarea id="ellenWhiteInsight" name="ellenWhiteInsight" value={formData.ellenWhiteInsight} onChange={handleChange} placeholder="Add an Ellen White insight..." rows={6} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+              <label htmlFor="ellenWhiteInsight" className="text-sm font-medium text-navy-100">Ellen White Insight</label>
+              <textarea id="ellenWhiteInsight" name="ellenWhiteInsight" value={formData.ellenWhiteInsight} onChange={handleChange} placeholder="Add an Ellen White insight..." rows={6} className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold" />
             </div>
             <div className="space-y-2">
-              <label htmlFor="todaysDeclaration" className="text-sm font-medium text-slate-200">Today&apos;s Declaration</label>
-              <textarea id="todaysDeclaration" name="todaysDeclaration" value={formData.todaysDeclaration} onChange={handleChange} placeholder="Add today&apos;s declaration..." rows={6} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+              <label htmlFor="todaysDeclaration" className="text-sm font-medium text-navy-100">Today&apos;s Declaration</label>
+              <textarea id="todaysDeclaration" name="todaysDeclaration" value={formData.todaysDeclaration} onChange={handleChange} placeholder="Add today&apos;s declaration..." rows={6} className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold" />
             </div>
             <div className="space-y-2">
-              <label htmlFor="appeal" className="text-sm font-medium text-slate-200">Appeal</label>
-              <textarea id="appeal" name="appeal" value={formData.appeal} onChange={handleChange} placeholder="Add an appeal..." rows={6} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+              <label htmlFor="appeal" className="text-sm font-medium text-navy-100">Appeal</label>
+              <textarea id="appeal" name="appeal" value={formData.appeal} onChange={handleChange} placeholder="Add an appeal..." rows={6} className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold" />
             </div>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="space-y-2">
-              <label htmlFor="reflection" className="text-sm font-medium text-slate-200">Reflection</label>
+              <label htmlFor="reflection" className="text-sm font-medium text-navy-100">Reflection</label>
               <textarea
                 id="reflection"
                 name="reflection"
@@ -285,12 +285,12 @@ export default function EditDevotionalPage() {
                 onChange={handleChange}
                 placeholder="Add a short reflection..."
                 rows={6}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="prayer" className="text-sm font-medium text-slate-200">Prayer</label>
+              <label htmlFor="prayer" className="text-sm font-medium text-navy-100">Prayer</label>
               <textarea
                 id="prayer"
                 name="prayer"
@@ -298,34 +298,34 @@ export default function EditDevotionalPage() {
                 onChange={handleChange}
                 placeholder="Write a closing prayer..."
                 rows={6}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="publishDate" className="text-sm font-medium text-slate-200">Publish Date</label>
+            <label htmlFor="publishDate" className="text-sm font-medium text-navy-100">Publish Date</label>
             <input
               id="publishDate"
               name="publishDate"
               type="date"
               value={formData.publishDate}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500"
+              className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="fullKeyVerse" className="text-sm font-medium text-slate-200">Full Key Verse</label>
-            <textarea id="fullKeyVerse" name="fullKeyVerse" value={formData.fullKeyVerse} onChange={handleChange} placeholder="Enter the complete Scripture verse text..." rows={4} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-500" />
+            <label htmlFor="fullKeyVerse" className="text-sm font-medium text-navy-100">Full Key Verse</label>
+            <textarea id="fullKeyVerse" name="fullKeyVerse" value={formData.fullKeyVerse} onChange={handleChange} placeholder="Enter the complete Scripture verse text..." rows={4} className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold" />
           </div>
 
-          <div className="flex items-center justify-end border-t border-slate-800 pt-6">
+          <div className="flex items-center justify-end border-t border-white/10 pt-6">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-70"
+              className="rounded-xl bg-gold px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isSubmitting ? 'Saving...' : 'Save Changes'}
             </button>
