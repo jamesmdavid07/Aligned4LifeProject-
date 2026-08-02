@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { DevotionalsPage } from '@/components/devotionals/DevotionalsPage';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Daily Devotionals | Aligned4LifeProject',
   description:

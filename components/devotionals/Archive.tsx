@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getPublishedDates, getPublishedMonths } from '@/lib/devotionals';
 import { MonthFolder } from './MonthFolder';
 import { YearSelector } from './YearSelector';
 
@@ -9,14 +8,16 @@ export function Archive({
   year,
   today,
   selectedDate,
+  availableDates,
   onSelectDate,
 }: {
   year: number;
   today: string;
   selectedDate: string;
+  availableDates: string[];
   onSelectDate: (date: string) => void;
 }) {
-  const months = getPublishedMonths(year, today);
+  const months = [8, 9, 10, 11, 12];
   const [openMonth, setOpenMonth] = useState<number | null>(null);
 
   useEffect(() => {
@@ -43,7 +44,10 @@ export function Archive({
       </div>
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {months.map((month) => {
-          const monthDates = getPublishedDates(year, month, today).map((devotional) => devotional.date);
+          const monthDates = availableDates
+            .filter((date) => date.startsWith(`${year}-${String(month).padStart(2, '0')}-`))
+            .sort((a, b) => a.localeCompare(b));
+
           return (
             <MonthFolder
               key={month}

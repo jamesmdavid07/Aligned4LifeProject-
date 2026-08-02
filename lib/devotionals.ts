@@ -25,12 +25,31 @@ export function getLatestPublished(date = getTodayDate()) {
     .sort((a, b) => b.date.localeCompare(a.date))[0];
 }
 
+function parseDevotionalDate(date: string) {
+  const trimmed = date?.trim();
+
+  if (!trimmed) return null;
+
+  const dateOnlyMatch = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (dateOnlyMatch) {
+    const [, year, month, day] = dateOnlyMatch;
+    return new Date(Number(year), Number(month) - 1, Number(day), 12, 0, 0);
+  }
+
+  const parsedDate = new Date(trimmed);
+  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
+}
+
 export function formatDevotionalDate(date: string) {
+  const parsedDate = parseDevotionalDate(date);
+
+  if (!parsedDate) return date;
+
   return new Intl.DateTimeFormat('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
-  }).format(new Date(`${date}T12:00:00`));
+  }).format(parsedDate);
 }
 
 export function getPublishedMonths(_year: number, _today = getTodayDate()) {

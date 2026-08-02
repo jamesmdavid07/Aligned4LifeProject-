@@ -88,7 +88,7 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
       <div className="flex flex-col gap-6 bg-navy-50/30 p-6 sm:flex-row sm:p-8 lg:p-10">
         <div className="aspect-square h-48 w-full shrink-0 overflow-hidden rounded-2xl shadow-lg sm:w-48">
           <Image
-            src={devotional.image}
+            src={devotional.image || '/images/shared/logo.png'}
             alt={`Featured devotional: ${devotional.title}`}
             width={192}
             height={192}
@@ -132,7 +132,7 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
         <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
           <BookOpen size={20} className="mx-auto text-gold-200" aria-hidden="true" />
           <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold-200">Key Verse</p>
-          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyVerse}&rdquo;</p>
+          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyVerse || devotional.scripture}&rdquo;</p>
         </div>
       </div>
       <div className="border-t border-navy-100 px-6 pb-8 pt-5 sm:px-8 lg:px-10">
