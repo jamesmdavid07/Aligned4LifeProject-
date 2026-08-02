@@ -6,7 +6,7 @@ import { Archive } from './Archive';
 import { BackToTodayButton } from './BackToTodayButton';
 import { DevotionalCard } from './DevotionalCard';
 import { HeroBanner } from './HeroBanner';
-import { formatDevotionalDate, getLatestPublished, getTodayDate } from '@/lib/devotionals';
+import { formatDevotionalDate, getTodayDate } from '@/lib/devotionals';
 import type { Devotional } from '@/lib/devotionals';
 
 export type DbDevotional = {
@@ -47,16 +47,15 @@ function mapDbDevotional(row: DbDevotional): Devotional {
 export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotionals?: DbDevotional[] }) {
   const initialMapped = initialDevotionals.map(mapDbDevotional);
   const initialToday = getTodayDate();
-  const initialDisplayed = initialMapped.find((item) => item.date === initialToday) ?? initialMapped[0] ?? null;
+  const initialDisplayed = initialMapped.find((item) => item.date === initialToday) ?? null;
+  const initialDevotionalIsMissing = !initialDisplayed;
   const [today, setToday] = useState(getTodayDate);
   const [selectedDate, setSelectedDate] = useState('');
   const [availableDates, setAvailableDates] = useState<string[]>([]);
   const [displayedDevotional, setDisplayedDevotional] = useState<Devotional | null>(initialDisplayed);
-  const [latestDevotional, setLatestDevotional] = useState<Devotional | null>(initialMapped[0] ?? null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(initialDevotionalIsMissing);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const fallbackDevotional = latestDevotional ?? getLatestPublished(today);
   const isUnavailable = Boolean(selectedDate) && selectedDate > today && !displayedDevotional;
   const isToday = Boolean(displayedDevotional?.date) && displayedDevotional?.date === today;
 
@@ -76,15 +75,19 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
 
           setAvailableDates(dates);
 
-          const todaysDevotional = mapped.find((item) => item.date === currentDate) ?? mapped[0] ?? null;
-          setLatestDevotional(mapped[0] ?? null);
+          const todaysDevotional = mapped.find((item) => item.date === currentDate) ?? null;
           setDisplayedDevotional(todaysDevotional);
           setSelectedDate(todaysDevotional?.date ?? currentDate);
-          setLoadError(null);
+          setLoadError(todaysDevotional ? null : 'Today\'s devotional is not available yet.');
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+          setLoadError('Unable to load devotionals right now.');
         }
       } catch (error) {
         console.error('Failed to load devotionals from MySQL', error);
         setLoadError('Unable to load devotionals right now.');
+        setIsLoading(false);
       }
     }
 
@@ -119,7 +122,7 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
     }
   }
 
-  const activeDevotional = displayedDevotional ?? fallbackDevotional;
+  const activeDevotional = displayedDevotional;
   const activeSelectedDate = selectedDate || activeDevotional?.date || today;
 
   return (
@@ -132,7 +135,7 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
               <div>
                 <p className="font-raleway text-sm font-bold uppercase tracking-[0.25em] text-gold">Daily nourishment</p>
                 <h2 id="featured-heading" className="mt-2 font-nunito text-3xl font-extrabold text-navy-600 sm:text-4xl">
-                  {isUnavailable ? "Devotional not yet available" : isToday ? `Today's Devotional - ${formatDevotionalDate(activeDevotional.date)}` : `Devotional for ${formatDevotionalDate(activeDevotional.date)}`}
+                  {isUnavailable || !activeDevotional ? "Devotional not yet available" : isToday ? `Today's Devotional - ${formatDevotionalDate(activeDevotional.date)}` : `Devotional for ${formatDevotionalDate(activeDevotional.date)}`}
                 </h2>
               </div>
               {isUnavailable && (
@@ -155,7 +158,7 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
                     <p className="font-nunito text-lg font-bold text-navy-700">Loading devotional...</p>
                   </div>
                 </motion.div>
-              ) : isUnavailable || loadError ? (
+              ) : isUnavailable || loadError || !activeDevotional ? (
                 <motion.div
                   key="unavailable"
                   initial={{ opacity: 0, y: 18 }}

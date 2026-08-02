@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
+import { getTodayDate } from '@/lib/devotionals';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -69,7 +70,7 @@ export async function GET(request: Request) {
       };
     });
 
-    return NextResponse.json({ success: true, data: devotionals });
+    return NextResponse.json({ success: true, data: devotionals, today: getTodayDate() });
   } catch (error) {
     console.error('Failed to fetch devotionals:', error);
     return NextResponse.json(

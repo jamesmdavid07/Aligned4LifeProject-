@@ -1,5 +1,3 @@
-import devotional2026 from '@/data/devotionals/2026.json';
-
 export interface Devotional {
   id: number;
   date: string;
@@ -17,17 +15,17 @@ export interface Devotional {
   readingTime: number;
 }
 
-export const devotionals: Devotional[] = devotional2026;
+const devotionalTimeZone = process.env.NEXT_PUBLIC_DEVOTIONAL_TIME_ZONE || 'America/New_York';
 
 export function getTodayDate() {
-  const today = new Date();
-  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-}
-
-export function getLatestPublished(date = getTodayDate()) {
-  return devotionals
-    .filter((devotional) => devotional.date <= date)
-    .sort((a, b) => b.date.localeCompare(a.date))[0];
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: devotionalTimeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
 function parseDevotionalDate(date: string) {
@@ -60,14 +58,4 @@ export function formatDevotionalDate(date: string) {
 export function getPublishedMonths(_year: number, _today = getTodayDate()) {
   const archiveMonths = [8, 9, 10, 11, 12];
   return archiveMonths;
-}
-
-export function getPublishedDates(year: number, month: number, today = getTodayDate()) {
-  return devotionals
-    .filter(
-      (devotional) =>
-        devotional.date.startsWith(`${year}-${String(month).padStart(2, '0')}-`) &&
-        devotional.date <= today,
-    )
-    .sort((a, b) => a.date.localeCompare(b.date));
 }

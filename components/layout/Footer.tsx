@@ -116,29 +116,6 @@ export function Footer() {
       <div className="border-t border-white/15 px-4 md:px-8 lg:px-12">
         <div className="mx-auto flex max-w-site flex-col items-center justify-between gap-2 py-6 md:flex-row">
           <p className="font-roboto text-sm text-white/60">{siteConfig.copyright}</p>
-          <p className="text-center font-roboto text-xs leading-relaxed text-white/60 md:text-right">
-            <span className="block">
-              Designed by{' '}
-              <a
-                href="https://javidverse.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gold underline transition-colors hover:text-gold-300"
-              >
-                JavidVerse
-              </a>{' '}
-              - For All Creative Solutions
-            </span>
-            <span className="mt-1 block">
-              Email us at:{' '}
-              <a
-                href="mailto:javidverse@gmail.com"
-                className="text-gold underline transition-colors hover:text-gold-300"
-              >
-                javidverse@gmail.com
-              </a>
-            </span>
-          </p>
         </div>
       </div>
     </footer>

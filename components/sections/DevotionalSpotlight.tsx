@@ -5,18 +5,42 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import { Reveal } from '@/components/animations/Reveal';
-import { getLatestPublished, formatDevotionalDate, getTodayDate } from '@/lib/devotionals';
+import { formatDevotionalDate, getTodayDate, type Devotional } from '@/lib/devotionals';
 
 export function DevotionalSpotlight() {
   const [today, setToday] = useState<string | null>(null);
+  const [devotional, setDevotional] = useState<Devotional | null>(null);
 
   useEffect(() => {
-    setToday(getTodayDate());
+    const currentDate = getTodayDate();
+    setToday(currentDate);
+
+    fetch(`/api/devotionals?date=${encodeURIComponent(currentDate)}`, { cache: 'no-store' })
+      .then((response) => response.json())
+      .then((result) => {
+        if (!result.success || !Array.isArray(result.data) || !result.data[0]) return;
+        const row = result.data[0];
+        setDevotional({
+          id: row.id,
+          date: row.publish_date || row.date,
+          title: row.title,
+          scripture: row.scripture,
+          image: row.image || '/images/shared/logo.png',
+          content: row.content,
+          ellenWhiteInsight: row.ellenWhiteInsight,
+          reflection: row.reflection,
+          todaysDeclaration: row.todaysDeclaration,
+          appeal: row.appeal,
+          prayer: row.prayer,
+          fullKeyVerse: row.fullKeyVerse,
+          keyVerse: row.fullKeyVerse || row.scripture,
+          readingTime: Math.max(2, Math.ceil((row.content?.split(/\s+/).filter(Boolean).length || 0) / 150)),
+        });
+      })
+      .catch((error) => console.error('Failed to load devotional spotlight', error));
   }, []);
 
-  const devotional = today ? getLatestPublished(today) : null;
-
-  if (!devotional) return null;
+  if (!today || !devotional) return null;
 
   const [firstPart, ...restParts] = devotional.title.split('. ');
   const subtitle = restParts.join('. ');
