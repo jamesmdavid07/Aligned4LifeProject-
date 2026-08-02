@@ -154,9 +154,12 @@ export function ContactSection() {
                   <Mail size={16} className="text-gold" aria-hidden="true" />
                   <p className="font-roboto text-xs text-lightgray md:text-sm">
                     Prefer email? Reach us at{' '}
-                    <span className="font-semibold text-white">
-                      info@aligned4lifeproject.com
-                    </span>
+                    <a
+                      href="mailto:r.bishop00@icloud.com"
+                      className="font-semibold text-white transition-colors hover:text-gold"
+                    >
+                      r.bishop00@icloud.com
+                    </a>
                   </p>
                 </div>
               </div>

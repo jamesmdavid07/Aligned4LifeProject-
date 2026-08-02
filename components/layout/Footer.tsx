@@ -53,13 +53,13 @@ export function Footer() {
               >
                 <Youtube size={20} />
               </a>
-              <Link
-                href="/contact"
+              <a
+                href="mailto:r.bishop00@icloud.com"
                 aria-label="Contact"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold hover:text-white"
               >
                 <Mail size={20} />
-              </Link>
+              </a>
             </div>
           </div>
 
