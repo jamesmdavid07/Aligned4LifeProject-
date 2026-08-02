@@ -9,7 +9,7 @@ import { HeroBanner } from './HeroBanner';
 import { formatDevotionalDate, getLatestPublished, getTodayDate } from '@/lib/devotionals';
 import type { Devotional } from '@/lib/devotionals';
 
-type DbDevotional = {
+export type DbDevotional = {
   id: number;
   title: string;
   scripture: string;
@@ -44,12 +44,15 @@ function mapDbDevotional(row: DbDevotional): Devotional {
   };
 }
 
-export function DevotionalsPage() {
+export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotionals?: DbDevotional[] }) {
+  const initialMapped = initialDevotionals.map(mapDbDevotional);
+  const initialToday = getTodayDate();
+  const initialDisplayed = initialMapped.find((item) => item.date === initialToday) ?? initialMapped[0] ?? null;
   const [today, setToday] = useState(getTodayDate);
   const [selectedDate, setSelectedDate] = useState('');
   const [availableDates, setAvailableDates] = useState<string[]>([]);
-  const [displayedDevotional, setDisplayedDevotional] = useState<Devotional | null>(null);
-  const [latestDevotional, setLatestDevotional] = useState<Devotional | null>(null);
+  const [displayedDevotional, setDisplayedDevotional] = useState<Devotional | null>(initialDisplayed);
+  const [latestDevotional, setLatestDevotional] = useState<Devotional | null>(initialMapped[0] ?? null);
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
 
