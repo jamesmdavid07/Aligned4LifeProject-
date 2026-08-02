@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 
 type FormState = {
   title: string;
@@ -167,6 +169,13 @@ export default function EditDevotionalPage() {
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl rounded-2xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl shadow-black/30 sm:p-8 lg:p-10">
+        <Link
+          href="/admin/devotionals"
+          className="mb-6 inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 transition hover:border-amber-500 hover:text-amber-400"
+        >
+          <ArrowLeft size={16} aria-hidden="true" />
+          Back to Devotionals
+        </Link>
         <div className="mb-8 border-b border-slate-800 pb-6">
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-amber-400">Admin Dashboard</p>
           <h1 className="text-3xl font-semibold text-white sm:text-4xl">Edit Devotional</h1>

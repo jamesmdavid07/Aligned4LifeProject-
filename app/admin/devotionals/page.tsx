@@ -65,7 +65,7 @@ export default function DevotionalsAdminListPage() {
           </div>
           <Link
             href="/admin/devotionals/new"
-            className="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-400"
+            className="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-400 sm:w-auto w-full"
           >
             Create New Devotional
           </Link>
@@ -80,26 +80,17 @@ export default function DevotionalsAdminListPage() {
         ) : rows.length === 0 ? (
           <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-6 text-sm text-slate-400">No devotionals found yet.</div>
         ) : (
-          <div className="overflow-hidden rounded-xl border border-slate-800">
-            <table className="min-w-full divide-y divide-slate-800 text-left text-sm">
-              <thead className="bg-slate-950/70 text-slate-300">
-                <tr>
-                  <th className="px-4 py-3 font-medium">Title</th>
-                  <th className="px-4 py-3 font-medium">Scripture</th>
-                  <th className="px-4 py-3 font-medium">Publish date</th>
-                  <th className="px-4 py-3 font-medium">Created date</th>
-                  <th className="px-4 py-3 font-medium">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800 bg-slate-900/60">
+          <>
+            <div className="overflow-hidden rounded-xl border border-slate-800 sm:block md:hidden">
+              <ul className="divide-y divide-slate-800 bg-slate-900/60">
                 {rows.map((row) => (
-                  <tr key={row.id}>
-                    <td className="px-4 py-3 font-medium text-white">{row.title}</td>
-                    <td className="px-4 py-3 text-slate-300">{row.scripture}</td>
-                    <td className="px-4 py-3 text-slate-300">{row.publish_date}</td>
-                    <td className="px-4 py-3 text-slate-300">{row.created_at}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex flex-wrap gap-2">
+                  <li key={row.id} className="px-4 py-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="font-medium text-white">{row.title}</p>
+                        <p className="mt-1 text-sm text-slate-300">{row.scripture}</p>
+                      </div>
+                      <div className="flex shrink-0 items-center gap-2">
                         <Link
                           href={`/admin/devotionals/edit/${row.id}`}
                           className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-amber-500 hover:text-amber-400"
@@ -114,12 +105,62 @@ export default function DevotionalsAdminListPage() {
                           Delete
                         </button>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                    <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <dt className="text-xs uppercase tracking-wide text-slate-500">Publish date</dt>
+                        <dd className="mt-0.5 text-slate-300">{row.publish_date}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs uppercase tracking-wide text-slate-500">Created date</dt>
+                        <dd className="mt-0.5 text-slate-300">{row.created_at}</dd>
+                      </div>
+                    </dl>
+                  </li>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </ul>
+            </div>
+            <div className="hidden overflow-x-auto rounded-xl border border-slate-800 sm:block">
+              <table className="min-w-full divide-y divide-slate-800 text-left text-sm">
+                <thead className="bg-slate-950/70 text-slate-300">
+                  <tr>
+                    <th className="px-4 py-3 font-medium">Title</th>
+                    <th className="px-4 py-3 font-medium">Scripture</th>
+                    <th className="px-4 py-3 font-medium">Publish date</th>
+                    <th className="px-4 py-3 font-medium">Created date</th>
+                    <th className="px-4 py-3 font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800 bg-slate-900/60">
+                  {rows.map((row) => (
+                    <tr key={row.id}>
+                      <td className="px-4 py-3 font-medium text-white">{row.title}</td>
+                      <td className="px-4 py-3 text-slate-300">{row.scripture}</td>
+                      <td className="px-4 py-3 text-slate-300">{row.publish_date}</td>
+                      <td className="px-4 py-3 text-slate-300">{row.created_at}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex flex-wrap gap-2">
+                          <Link
+                            href={`/admin/devotionals/edit/${row.id}`}
+                            className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-amber-500 hover:text-amber-400"
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(row.id)}
+                            className="rounded-lg border border-rose-700 px-3 py-2 text-xs font-semibold text-rose-300 transition hover:bg-rose-900/40"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </div>
