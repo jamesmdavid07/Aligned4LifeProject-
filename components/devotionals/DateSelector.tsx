@@ -36,7 +36,7 @@ export function DateSelector({
         {leadingDays.map((_, index) => <span key={`empty-${index}`} aria-hidden="true" />)}
         {calendarDays.map((date) => {
         const selected = date === selectedDate;
-        const available = availableDateSet.has(date) && date <= today;
+          const available = availableDateSet.has(date);
         return (
           <motion.button
             key={date}
