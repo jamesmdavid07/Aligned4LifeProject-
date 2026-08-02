@@ -71,7 +71,7 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
         if (response.ok && result.success && Array.isArray(result.data)) {
           const rows = result.data as DbDevotional[];
           const mapped = rows.map(mapDbDevotional);
-          const dates = mapped.map((item) => item.date).filter(Boolean);
+          const dates = mapped.map((item) => item.date).filter((date) => date <= currentDate);
 
           setAvailableDates(dates);
 
@@ -96,8 +96,15 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
 
   async function selectDate(date: string) {
     setSelectedDate(date);
-    setIsLoading(true);
     setLoadError(null);
+
+    if (date > today) {
+      setDisplayedDevotional(null);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch(`/api/devotionals?date=${encodeURIComponent(date)}`, { cache: 'no-store' });

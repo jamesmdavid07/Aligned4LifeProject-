@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { getTodayDate } from '@/lib/devotionals';
 
 type DevotionalRow = {
   id: number;
   title: string;
   scripture: string;
   publish_date: string;
-  created_at: string;
 };
 
 export default function DevotionalsAdminListPage() {
@@ -18,7 +18,7 @@ export default function DevotionalsAdminListPage() {
 
   async function loadRows() {
     try {
-      const response = await fetch('/api/devotionals', { cache: 'no-store' });
+      const response = await fetch('/api/devotionals?includeFuture=1', { cache: 'no-store' });
       const result = await response.json();
 
       if (!response.ok || !result.success) {
@@ -87,7 +87,18 @@ export default function DevotionalsAdminListPage() {
                   <li key={row.id} className="px-4 py-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="font-medium text-white">{row.title}</p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="font-medium text-white">{row.title}</p>
+                          <span
+                            className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                              row.publish_date > getTodayDate()
+                                ? 'bg-amber-500/15 text-amber-400'
+                                : 'bg-emerald-500/15 text-emerald-400'
+                            }`}
+                          >
+                            {row.publish_date > getTodayDate() ? 'Scheduled' : 'Published'}
+                          </span>
+                        </div>
                         <p className="mt-1 text-sm text-slate-300">{row.scripture}</p>
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
@@ -106,14 +117,10 @@ export default function DevotionalsAdminListPage() {
                         </button>
                       </div>
                     </div>
-                    <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                      <div>
+                    <dl className="mt-3 text-sm">
+                      <div className="flex items-center justify-between gap-2">
                         <dt className="text-xs uppercase tracking-wide text-slate-500">Publish date</dt>
                         <dd className="mt-0.5 text-slate-300">{row.publish_date}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-xs uppercase tracking-wide text-slate-500">Created date</dt>
-                        <dd className="mt-0.5 text-slate-300">{row.created_at}</dd>
                       </div>
                     </dl>
                   </li>
@@ -126,8 +133,8 @@ export default function DevotionalsAdminListPage() {
                   <tr>
                     <th className="px-4 py-3 font-medium">Title</th>
                     <th className="px-4 py-3 font-medium">Scripture</th>
+                    <th className="px-4 py-3 font-medium">Status</th>
                     <th className="px-4 py-3 font-medium">Publish date</th>
-                    <th className="px-4 py-3 font-medium">Created date</th>
                     <th className="px-4 py-3 font-medium">Actions</th>
                   </tr>
                 </thead>
@@ -136,8 +143,18 @@ export default function DevotionalsAdminListPage() {
                     <tr key={row.id}>
                       <td className="px-4 py-3 font-medium text-white">{row.title}</td>
                       <td className="px-4 py-3 text-slate-300">{row.scripture}</td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                            row.publish_date > getTodayDate()
+                              ? 'bg-amber-500/15 text-amber-400'
+                              : 'bg-emerald-500/15 text-emerald-400'
+                          }`}
+                        >
+                          {row.publish_date > getTodayDate() ? 'Scheduled' : 'Published'}
+                        </span>
+                      </td>
                       <td className="px-4 py-3 text-slate-300">{row.publish_date}</td>
-                      <td className="px-4 py-3 text-slate-300">{row.created_at}</td>
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-2">
                           <Link

@@ -33,6 +33,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const requestedDate = normalizeDateValue(searchParams.get('date')?.trim());
     const id = searchParams.get('id')?.trim();
+    const includeFuture = searchParams.get('includeFuture') === '1';
 
     let query = `SELECT id, title, scripture, image, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, full_key_verse, publish_date
        FROM devotionals`;
@@ -44,6 +45,11 @@ export async function GET(request: Request) {
     } else if (requestedDate) {
       query += ` WHERE DATE(publish_date) = ?`;
       values.push(requestedDate);
+    }
+
+    if (!id && !includeFuture) {
+      query += query.includes('WHERE') ? ' AND' : ' WHERE';
+      query += ` publish_date <= CURDATE()`;
     }
 
     query += ` ORDER BY publish_date DESC, id DESC`;
