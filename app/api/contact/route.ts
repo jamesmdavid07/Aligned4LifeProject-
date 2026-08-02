@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 export const runtime = 'nodejs';
 
@@ -19,10 +20,14 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const host = process.env.SMTP_HOST;
+  const port = Number(process.env.SMTP_PORT ?? 465);
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  const from = process.env.SMTP_FROM ?? user;
   const to = process.env.CONTACT_EMAIL;
 
-  if (!apiKey || !to) {
+  if (!host || !user || !pass || !from || !to) {
     return NextResponse.json(
       { success: false, message: 'Email service is not configured.' },
       { status: 500 },
@@ -38,23 +43,21 @@ export async function POST(request: Request) {
     .filter(Boolean)
     .join('\n');
 
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+  });
+
   try {
-    const { Resend } = await import('resend');
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from: 'r.bishop00@icloud.com',
+    await transporter.sendMail({
+      from: `Aligned4Life <${from}>`,
       to,
+      replyTo: email.trim(),
       subject: `New contact form submission from ${name.trim()}`,
       text: message,
     });
-
-    if (error) {
-      console.error('Resend error:', error);
-      return NextResponse.json(
-        { success: false, message: 'Failed to send your message. Please try again.' },
-        { status: 500 },
-      );
-    }
 
     return NextResponse.json({ success: true, message: 'Welcome aboard!' });
   } catch (error) {

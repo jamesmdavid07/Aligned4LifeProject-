@@ -66,6 +66,7 @@ export function ContactSection() {
   const [otherInterest, setOtherInterest] = useState('');
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -86,6 +87,7 @@ export function ContactSection() {
     if (Object.keys(nextErrors).length > 0) return;
 
     setStatus('submitting');
+    setErrorMessage('');
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -97,8 +99,11 @@ export function ContactSection() {
           other: interest === 'Other' ? otherInterest : '',
         }),
       });
-      const data = await response.json();
-      if (!response.ok || !data.success) throw new Error('Request failed');
+      const data = await response.json().catch(() => null);
+      if (!response.ok || !data?.success) {
+        setErrorMessage(data?.message ?? '');
+        throw new Error('Request failed');
+      }
       setStatus('success');
     } catch {
       setStatus('error');
@@ -202,7 +207,7 @@ export function ContactSection() {
 
                   {status === 'error' && (
                     <div className="mt-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 font-roboto text-sm text-red-700">
-                      Something went wrong. Please try again in a moment.
+                      {errorMessage || 'Something went wrong. Please try again in a moment.'}
                     </div>
                   )}
 
