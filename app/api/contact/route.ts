@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   let body: { name?: string; email?: string; interest?: string; other?: string };
@@ -17,9 +20,37 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({
-    success: true,
-    message: 'Welcome aboard!',
-    data: { name: name.trim(), email: email.trim(), interest, other: other.trim() },
-  });
+  const message = [
+    `Name: ${name.trim()}`,
+    `Email: ${email.trim()}`,
+    `Interest: ${interest}`,
+    other.trim() ? `Details: ${other.trim()}` : null,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  try {
+    const { error } = await resend.emails.send({
+      from: 'r.bishop00@icloud.com',
+      to: process.env.CONTACT_EMAIL ?? '',
+      subject: `New contact form submission from ${name.trim()}`,
+      text: message,
+    });
+
+    if (error) {
+      console.error('Resend error:', error);
+      return NextResponse.json(
+        { success: false, message: 'Failed to send your message. Please try again.' },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ success: true, message: 'Welcome aboard!' });
+  } catch (error) {
+    console.error('Failed to send contact email:', error);
+    return NextResponse.json(
+      { success: false, message: 'Failed to send your message. Please try again.' },
+      { status: 500 },
+    );
+  }
 }
