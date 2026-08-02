@@ -153,15 +153,11 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
           </div>
           <p className="mt-2 leading-7 text-textgray">{devotional.prayer}</p>
         </div>
-        {devotional.fullKeyVerse ? <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
+        <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
           <BookOpen size={20} className="mx-auto text-gold-200" aria-hidden="true" />
           <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold-200">Full Key Verse</p>
-          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.fullKeyVerse}&rdquo;</p>
-        </div> : <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
-          <BookOpen size={20} className="mx-auto text-gold-200" aria-hidden="true" />
-          <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold-200">Key Verse</p>
-          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyVerse || devotional.scripture}&rdquo;</p>
-        </div>}
+          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.fullKeyVerse || devotional.keyVerse || devotional.scripture}&rdquo;</p>
+        </div>
       </div>
       <div className="border-t border-navy-100 px-6 pb-8 pt-5 sm:px-8 lg:px-10">
         <ShareButtons title={devotional.title} />
