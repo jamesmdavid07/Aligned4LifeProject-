@@ -92,7 +92,7 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
     >
       <div className="h-1.5 bg-gradient-to-r from-gold via-gold-300 to-gold" />
       <div className="flex flex-col gap-6 bg-navy-50/30 p-6 sm:flex-row sm:p-8 lg:p-10">
-        <div className="aspect-square h-48 w-full shrink-0 overflow-hidden rounded-2xl shadow-lg sm:w-48">
+        <div className="mx-auto aspect-square h-48 w-48 shrink-0 overflow-hidden rounded-2xl shadow-lg sm:mx-0">
           <Image
             src={devotional.image || '/images/shared/logo.png'}
             alt={`Featured devotional: ${devotional.title}`}
@@ -108,15 +108,9 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
             </span>
             <ReadingTime minutes={devotional.readingTime} />
           </div>
-          {(() => {
-            const parts = devotional.title.split('. ');
-            return (
-              <h2 className="font-nunito text-2xl leading-tight text-navy-700 sm:text-3xl">
-                <span className="font-semibold">{parts[0]}.</span>
-                <span className="block font-extrabold">{parts.slice(1).join('. ')}</span>
-              </h2>
-            );
-          })()}
+          <h2 className="font-nunito text-2xl font-extrabold leading-tight text-navy-700 sm:text-3xl">
+            {devotional.title}
+          </h2>
         </div>
       </div>
       <div className="space-y-6 px-6 pb-6 font-roboto text-base leading-8 text-textgray sm:px-8 lg:px-10">
