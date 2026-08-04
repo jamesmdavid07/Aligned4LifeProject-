@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Nunito, Raleway, Roboto, Montserrat } from 'next/font/google';
+import { CookieConsent } from '@/components/layout/CookieConsent';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -65,20 +65,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          id="gtag-init"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+var consentMatch = document.cookie.match(/(?:^|; )cookie_consent=([^;]*)/);
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: consentMatch && consentMatch[1] === 'granted' ? 'granted' : 'denied',
+  wait_for_update: 1000
+});
+gtag('js', new Date());
+var s = document.createElement('script');
+s.async = true;
+s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HQQDWX61ZS';
+document.head.appendChild(s);
+gtag('config', 'G-HQQDWX61ZS');`,
+          }}
+        />
+      </head>
       <body
         className={`${nunito.variable} ${raleway.variable} ${roboto.variable} ${montserrat.variable} font-roboto antialiased`}
       >
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-HQQDWX61ZS"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'G-HQQDWX61ZS');`}
-        </Script>
+        <CookieConsent />
         {children}
       </body>
     </html>
