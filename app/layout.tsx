@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Nunito, Raleway, Roboto, Montserrat } from 'next/font/google';
 
 const nunito = Nunito({
@@ -67,6 +68,17 @@ export default function RootLayout({
       <body
         className={`${nunito.variable} ${raleway.variable} ${roboto.variable} ${montserrat.variable} font-roboto antialiased`}
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-HQQDWX61ZS"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-HQQDWX61ZS');`}
+        </Script>
         {children}
       </body>
     </html>
