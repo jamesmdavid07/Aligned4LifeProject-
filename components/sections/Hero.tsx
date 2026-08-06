@@ -78,10 +78,10 @@ export function Hero() {
                 Contact Us
               </Link>
               <Link
-                href="/resources"
+                href="/blog"
                 className="inline-block rounded-md border-2 border-white/40 px-10 py-3.5 font-raleway text-lg font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:bg-gold hover:text-white"
               >
-                Explore Resources
+                Read This Week&apos;s Blog
               </Link>
             </div>
           </motion.div>

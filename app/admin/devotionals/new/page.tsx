@@ -202,6 +202,7 @@ export default function NewDevotionalPage() {
             />
             {formData.imagePreview ? (
               <div className="mt-3 overflow-hidden rounded-xl border border-white/10">
+                {/* eslint-disable-next-line @next/next/no-img-element -- base64 data-URI preview, next/image requires real dimensions */}
                 <img src={formData.imagePreview} alt="Selected preview" className="h-48 w-full object-cover" />
               </div>
             ) : null}

@@ -29,18 +29,4 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-export const connectionTarget = socketPath
-  ? { type: 'socket' as const, socketPath }
-  : { type: 'tcp' as const, host: host || 'localhost' };
-
-export async function testConnection() {
-  const connection = await pool.getConnection();
-  try {
-    await connection.ping();
-    return { ok: true };
-  } finally {
-    connection.release();
-  }
-}
-
 export default pool;

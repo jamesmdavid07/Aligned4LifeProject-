@@ -21,7 +21,6 @@ export default function AboutPage() {
           </>
         }
         subtitle="Dedicated to realigning lives with God's purpose through truth, healing, and transformation."
-        breadcrumb="About"
       />
       <OurStory />
       <MissionVisionSection />

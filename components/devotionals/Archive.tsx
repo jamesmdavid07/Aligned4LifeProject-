@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { MonthFolder } from './MonthFolder';
 import { YearSelector } from './YearSelector';
 
+const ARCHIVE_MONTHS = [8, 9, 10, 11, 12];
+
 export function Archive({
   year,
   today,
@@ -17,17 +19,16 @@ export function Archive({
   availableDates: string[];
   onSelectDate: (date: string) => void;
 }) {
-  const months = [8, 9, 10, 11, 12];
   const [openMonth, setOpenMonth] = useState<number | null>(null);
 
   useEffect(() => {
     const selectedMonthFromDate = Number(selectedDate.slice(5, 7));
-    if (months.includes(selectedMonthFromDate)) {
+    if (ARCHIVE_MONTHS.includes(selectedMonthFromDate)) {
       setOpenMonth(selectedMonthFromDate);
-    } else if (months.length > 0) {
-      setOpenMonth(months[0]);
+    } else if (ARCHIVE_MONTHS.length > 0) {
+      setOpenMonth(ARCHIVE_MONTHS[0]);
     }
-  }, [months, selectedDate]);
+  }, [selectedDate]);
 
   function handleMonthSelect(month: number) {
     setOpenMonth((prev) => (prev === month ? null : month));
@@ -43,7 +44,7 @@ export function Archive({
         <YearSelector year={year} />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {months.map((month) => {
+        {ARCHIVE_MONTHS.map((month) => {
           const monthDates = availableDates
             .filter((date) => date.startsWith(`${year}-${String(month).padStart(2, '0')}-`))
             .sort((a, b) => a.localeCompare(b));

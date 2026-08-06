@@ -12,7 +12,7 @@ export const navLinks = [
   { label: 'Books', href: '/books' },
   { label: 'Podcast', href: '/podcast' },
   { label: 'Devotionals', href: '/devotionals' },
-  { label: 'Resources', href: '/resources' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 export const socialLinks = [

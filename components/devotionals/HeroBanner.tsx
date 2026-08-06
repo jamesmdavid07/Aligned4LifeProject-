@@ -22,14 +22,6 @@ export function HeroBanner() {
       />
 
       <div className="relative z-10 mx-auto max-w-site px-4 py-14 md:px-8 md:py-20 lg:px-12">
-        <motion.p
-          className="text-center font-raleway text-xs font-semibold uppercase tracking-[0.3em] text-gold"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          A daily moment of alignment
-        </motion.p>
         <motion.h1
           className="mt-4 text-center font-nunito text-3xl font-extrabold text-white sm:text-4xl md:text-5xl"
           initial={{ opacity: 0, y: 24 }}
