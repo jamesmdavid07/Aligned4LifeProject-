@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Bookmark, Heart, BookOpen } from 'lucide-react';
 import type { Devotional } from '@/lib/devotionals';
@@ -91,26 +90,17 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
       transition={{ duration: 0.45, ease: 'easeOut' }}
     >
       <div className="h-1.5 bg-gradient-to-r from-gold via-gold-300 to-gold" />
-      <div className="flex flex-col gap-6 bg-navy-50/30 p-6 sm:flex-row sm:p-8 lg:p-10">
-        <div className="mx-auto aspect-square h-48 w-48 shrink-0 overflow-hidden rounded-2xl shadow-lg sm:mx-0">
-          <Image
-            src={devotional.image || '/images/shared/logo.png'}
-            alt={`Featured devotional: ${devotional.title}`}
-            width={192}
-            height={192}
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="flex flex-1 flex-col justify-center gap-3">
-          <div className="flex flex-wrap items-center gap-4">
-            <span className="inline-block rounded-lg bg-navy-600 px-4 py-1.5 font-raleway text-sm font-bold uppercase tracking-[0.18em] text-gold">
-              {devotional.scripture}
-            </span>
-            <ReadingTime minutes={devotional.readingTime} />
-          </div>
+      <div className="space-y-5 bg-navy-50/30 p-6 sm:p-8 lg:p-10">
+        <div className="flex flex-col gap-3">
           <h2 className="font-nunito text-2xl font-extrabold leading-tight text-navy-700 sm:text-3xl">
             {devotional.title}
           </h2>
+          <ReadingTime minutes={devotional.readingTime} />
+        </div>
+        <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
+          <BookOpen size={20} className="mx-auto text-gold" aria-hidden="true" />
+          <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold">Key Text</p>
+          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyText || devotional.keyVerse || devotional.scripture}&rdquo;</p>
         </div>
       </div>
       <div className="space-y-6 px-6 pb-6 font-roboto text-base leading-8 text-textgray sm:px-8 lg:px-10">
@@ -146,11 +136,6 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
             <h3 className="font-nunito text-sm font-bold uppercase tracking-wider text-navy-600">Prayer</h3>
           </div>
           <p className="mt-2 leading-7 text-textgray">{devotional.prayer}</p>
-        </div>
-        <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
-          <BookOpen size={20} className="mx-auto text-gold-200" aria-hidden="true" />
-          <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold-200">Full Key Verse</p>
-          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.fullKeyVerse || devotional.keyVerse || devotional.scripture}&rdquo;</p>
         </div>
       </div>
       <div className="border-t border-navy-100 px-6 pb-8 pt-5 sm:px-8 lg:px-10">

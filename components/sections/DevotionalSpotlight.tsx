@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import { Reveal } from '@/components/animations/Reveal';
 import { formatDevotionalDate, getTodayDate, type Devotional } from '@/lib/devotionals';
+import { ReadingTime } from '@/components/devotionals/ReadingTime';
 
 export function DevotionalSpotlight() {
   const [today, setToday] = useState<string | null>(null);
@@ -25,15 +25,14 @@ export function DevotionalSpotlight() {
           date: row.publish_date || row.date,
           title: row.title,
           scripture: row.scripture,
-          image: row.image || '/images/shared/logo.png',
           content: row.content,
           ellenWhiteInsight: row.ellenWhiteInsight,
           reflection: row.reflection,
           todaysDeclaration: row.todaysDeclaration,
           appeal: row.appeal,
           prayer: row.prayer,
-          fullKeyVerse: row.fullKeyVerse,
-          keyVerse: row.fullKeyVerse || row.scripture,
+          keyText: row.keyText,
+          keyVerse: row.keyText || row.scripture,
           readingTime: Math.max(2, Math.ceil((row.content?.split(/\s+/).filter(Boolean).length || 0) / 150)),
         });
       })
@@ -57,59 +56,40 @@ export function DevotionalSpotlight() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-site px-4 md:px-8 lg:px-12">
-        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
-          {/* Left: devotional image */}
-          <Reveal direction="right">
-            <div className="relative mx-auto w-full max-w-md">
-              <div
-                className="absolute -inset-3 rounded-3xl border border-gold/40"
-                aria-hidden="true"
-              />
-              <div className="relative aspect-square w-full overflow-hidden rounded-2xl shadow-2xl">
-                <Image
-                  src={devotional.image}
-                  alt={`Devotional artwork: ${devotional.title}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent" />
-                <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-gold px-4 py-1.5 font-raleway text-sm font-bold uppercase tracking-[0.18em] text-white">
-                  <BookOpen size={14} aria-hidden="true" />
-                  Today&apos;s Devotional
-                </span>
-              </div>
+        <div className="mx-auto w-full max-w-3xl">
+          <Reveal direction="up">
+            <div className="flex flex-col items-center gap-3 text-center">
+              <p className="font-raleway text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+                {formatDevotionalDate(devotional.date)}
+              </p>
+              <h2 className="font-nunito text-3xl font-bold text-white md:text-4xl">
+                {firstPart}.
+                {subtitle && (
+                  <span className="mt-1 block font-extrabold">{subtitle}</span>
+                )}
+              </h2>
+              <ReadingTime minutes={devotional.readingTime} />
             </div>
           </Reveal>
 
-          {/* Right: text */}
-          <Reveal direction="left" delay={0.15} className="text-center lg:text-left">
-            <p className="font-raleway text-xs font-semibold uppercase tracking-[0.3em] text-gold">
-              {formatDevotionalDate(devotional.date)}
-            </p>
-            <h2 className="mt-3 font-nunito text-3xl font-bold text-white md:text-4xl">
-              {firstPart}.
-              {subtitle && (
-                <span className="mt-1 block font-extrabold">{subtitle}</span>
-              )}
-            </h2>
-            <span className="mt-4 inline-block rounded-lg bg-white/10 px-4 py-1.5 font-raleway text-sm font-bold uppercase tracking-[0.18em] text-gold">
-              {devotional.scripture}
-            </span>
+          <Reveal direction="up" delay={0.15} className="mt-8">
+            <div className="rounded-2xl border border-gold/40 bg-navy-800/60 px-6 py-6 text-center shadow-2xl backdrop-blur sm:px-10 sm:py-8">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gold text-white shadow-lg">
+                <BookOpen size={18} aria-hidden="true" />
+              </div>
+              <p className="mt-3 font-nunito text-sm font-bold uppercase tracking-widest text-gold">Key Text</p>
+              <blockquote className="mx-auto mt-4 max-w-2xl">
+                <p className="font-nunito text-xl font-bold leading-relaxed text-white md:text-2xl">
+                  &ldquo;{devotional.keyText || devotional.keyVerse || devotional.scripture}&rdquo;
+                </p>
+              </blockquote>
+            </div>
+          </Reveal>
 
-            <blockquote className="mx-auto mt-6 max-w-md border-l-4 border-gold pl-5 text-left lg:mx-0">
-              <p className="font-nunito text-lg font-bold leading-relaxed text-lightgray md:text-xl">
-                &ldquo;{devotional.keyVerse}&rdquo;
-              </p>
-            </blockquote>
-
-            <p className="mt-5 font-roboto text-sm text-lightgray md:text-base">
-              {devotional.readingTime} min read
-            </p>
-
+          <Reveal direction="up" delay={0.25} className="mt-8 text-center">
             <Link
               href="/devotionals"
-              className="group mt-8 inline-flex items-center gap-2 rounded-md bg-gold px-8 py-3 font-raleway text-base font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group inline-flex items-center gap-2 rounded-md bg-gold px-8 py-3 font-raleway text-base font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               Read Today&apos;s Devotional
               <ArrowRight

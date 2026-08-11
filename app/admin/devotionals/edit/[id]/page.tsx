@@ -8,30 +8,26 @@ import { ArrowLeft } from 'lucide-react';
 type FormState = {
   title: string;
   scripture: string;
-  imageFile: File | null;
-  imagePreview: string;
+  keyText: string;
   content: string;
   ellenWhiteInsight: string;
   reflection: string;
   todaysDeclaration: string;
   appeal: string;
   prayer: string;
-  fullKeyVerse: string;
   publishDate: string;
 };
 
 const initialFormState: FormState = {
   title: '',
   scripture: '',
-  imageFile: null,
-  imagePreview: '',
+  keyText: '',
   content: '',
   ellenWhiteInsight: '',
   reflection: '',
   todaysDeclaration: '',
   appeal: '',
   prayer: '',
-  fullKeyVerse: '',
   publishDate: '',
 };
 
@@ -58,15 +54,13 @@ export default function EditDevotionalPage() {
         setFormData({
           title: row.title ?? '',
           scripture: row.scripture ?? '',
-          imageFile: null,
-          imagePreview: row.image ?? '',
+          keyText: row.keyText ?? '',
           content: row.content ?? '',
           ellenWhiteInsight: row.ellenWhiteInsight ?? '',
           reflection: row.reflection ?? '',
           todaysDeclaration: row.todaysDeclaration ?? '',
           appeal: row.appeal ?? '',
           prayer: row.prayer ?? '',
-          fullKeyVerse: row.fullKeyVerse ?? '',
           publishDate: row.publish_date ?? '',
         });
       } catch (error) {
@@ -89,44 +83,12 @@ export default function EditDevotionalPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-
-    if (!file) {
-      setFormData((prev) => ({ ...prev, imageFile: null, imagePreview: prev.imagePreview }));
-      return;
-    }
-
-    const previewUrl = URL.createObjectURL(file);
-    setFormData((prev) => ({ ...prev, imageFile: file, imagePreview: previewUrl }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus(null);
 
     try {
-      let imageUrl = formData.imagePreview;
-
-      if (formData.imageFile) {
-        const uploadFormData = new FormData();
-        uploadFormData.append('file', formData.imageFile);
-
-        const uploadResponse = await fetch('/api/upload', {
-          method: 'POST',
-          body: uploadFormData,
-        });
-
-        const uploadResult = await uploadResponse.json();
-
-        if (!uploadResponse.ok || !uploadResult.success) {
-          throw new Error(uploadResult.message || 'Image upload failed.');
-        }
-
-        imageUrl = uploadResult.url;
-      }
-
       const response = await fetch('/api/devotionals', {
         method: 'PUT',
         headers: {
@@ -136,14 +98,13 @@ export default function EditDevotionalPage() {
           id: Number(id),
           title: formData.title,
           scripture: formData.scripture,
-          image: imageUrl,
+          keyText: formData.keyText,
           content: formData.content,
           ellenWhiteInsight: formData.ellenWhiteInsight,
           reflection: formData.reflection,
           todaysDeclaration: formData.todaysDeclaration,
           appeal: formData.appeal,
           prayer: formData.prayer,
-          fullKeyVerse: formData.fullKeyVerse,
           publish_date: formData.publishDate,
         }),
       });
@@ -230,21 +191,8 @@ export default function EditDevotionalPage() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="imageFile" className="text-sm font-medium text-navy-100">Image Upload</label>
-            <input
-              id="imageFile"
-              name="imageFile"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
-            />
-            {formData.imagePreview ? (
-              <div className="mt-3 overflow-hidden rounded-xl border border-white/10">
-                {/* eslint-disable-next-line @next/next/no-img-element -- base64 data-URI preview, next/image requires real dimensions */}
-                <img src={formData.imagePreview} alt="Current devotional preview" className="h-48 w-full object-cover" />
-              </div>
-            ) : null}
+            <label htmlFor="keyText" className="text-sm font-medium text-navy-100">Key Text</label>
+            <textarea id="keyText" name="keyText" value={formData.keyText} onChange={handleChange} placeholder="Enter the complete Scripture verse text..." rows={4} className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold" />
           </div>
 
           <div className="space-y-2">
@@ -315,11 +263,6 @@ export default function EditDevotionalPage() {
               className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
               required
             />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="fullKeyVerse" className="text-sm font-medium text-navy-100">Full Key Verse</label>
-            <textarea id="fullKeyVerse" name="fullKeyVerse" value={formData.fullKeyVerse} onChange={handleChange} placeholder="Enter the complete Scripture verse text..." rows={4} className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold" />
           </div>
 
           <div className="flex items-center justify-end border-t border-white/10 pt-6">
