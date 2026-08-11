@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     const id = searchParams.get('id')?.trim();
     const includeFuture = searchParams.get('includeFuture') === '1';
 
-    let query = `SELECT id, title, scripture, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, key_text, publish_date
+    let query = `SELECT id, title, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, key_text, publish_date
        FROM devotionals`;
     const values: Array<string | number> = [];
 
@@ -62,7 +62,6 @@ export async function GET(request: Request) {
       return {
         id: Number(row.id),
         title: String(row.title ?? ''),
-        scripture: String(row.scripture ?? ''),
         content: String(row.content ?? ''),
         ellenWhiteInsight: String(row.ellen_white_insight ?? ''),
         reflection: String(row.reflection ?? ''),
@@ -122,7 +121,6 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const id = typeof body?.id === 'number' ? body.id : Number(body?.id);
     const title = typeof body?.title === 'string' ? body.title.trim() : '';
-    const scripture = typeof body?.scripture === 'string' ? body.scripture.trim() : '';
     const content = typeof body?.content === 'string' ? body.content.trim() : '';
     const ellenWhiteInsight = typeof body?.ellenWhiteInsight === 'string' ? body.ellenWhiteInsight.trim() : '';
     const reflection = typeof body?.reflection === 'string' ? body.reflection.trim() : '';
@@ -132,7 +130,7 @@ export async function PUT(request: Request) {
     const keyText = typeof body?.keyText === 'string' ? body.keyText.trim() : '';
     const publishDate = typeof body?.publish_date === 'string' ? body.publish_date.trim() : '';
 
-    if (!id || !title || !scripture || !content || !publishDate) {
+    if (!id || !title || !content || !publishDate) {
       return NextResponse.json(
         { success: false, message: 'Please fill in the required fields.' },
         { status: 400 },
@@ -141,9 +139,9 @@ export async function PUT(request: Request) {
 
     await pool.execute(
        `UPDATE devotionals
-        SET title = ?, scripture = ?, content = ?, ellen_white_insight = ?, reflection = ?, todays_declaration = ?, appeal = ?, prayer = ?, key_text = ?, publish_date = ?, updated_at = NOW()
+        SET title = ?, content = ?, ellen_white_insight = ?, reflection = ?, todays_declaration = ?, appeal = ?, prayer = ?, key_text = ?, publish_date = ?, updated_at = NOW()
         WHERE id = ?`,
-      [title, scripture, content, ellenWhiteInsight, reflection, todaysDeclaration, appeal, prayer, keyText, publishDate, id],
+      [title, content, ellenWhiteInsight, reflection, todaysDeclaration, appeal, prayer, keyText, publishDate, id],
     );
 
     return NextResponse.json({ success: true, message: 'Devotional updated successfully.' });
@@ -165,7 +163,6 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     const title = typeof body?.title === 'string' ? body.title.trim() : '';
-    const scripture = typeof body?.scripture === 'string' ? body.scripture.trim() : '';
     const content = typeof body?.content === 'string' ? body.content.trim() : '';
     const ellenWhiteInsight = typeof body?.ellenWhiteInsight === 'string' ? body.ellenWhiteInsight.trim() : '';
     const reflection = typeof body?.reflection === 'string' ? body.reflection.trim() : '';
@@ -175,7 +172,7 @@ export async function POST(request: Request) {
     const keyText = typeof body?.keyText === 'string' ? body.keyText.trim() : '';
     const publishDate = typeof body?.publish_date === 'string' ? body.publish_date.trim() : '';
 
-    if (!title || !scripture || !content || !publishDate) {
+    if (!title || !content || !publishDate) {
       return NextResponse.json(
         { success: false, message: 'Please fill in the required fields.' },
         { status: 400 },
@@ -183,9 +180,9 @@ export async function POST(request: Request) {
     }
 
     const [result] = await pool.execute(
-      `INSERT INTO devotionals (title, scripture, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, key_text, publish_date, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
-      [title, scripture, content, ellenWhiteInsight, reflection, todaysDeclaration, appeal, prayer, keyText, publishDate],
+      `INSERT INTO devotionals (title, content, ellen_white_insight, reflection, todays_declaration, appeal, prayer, key_text, publish_date, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+      [title, content, ellenWhiteInsight, reflection, todaysDeclaration, appeal, prayer, keyText, publishDate],
     );
 
     const insertId = (result as { insertId?: number }).insertId ?? null;

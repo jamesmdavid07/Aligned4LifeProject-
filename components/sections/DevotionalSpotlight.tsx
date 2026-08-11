@@ -24,7 +24,6 @@ export function DevotionalSpotlight() {
           id: row.id,
           date: row.publish_date || row.date,
           title: row.title,
-          scripture: row.scripture,
           content: row.content,
           ellenWhiteInsight: row.ellenWhiteInsight,
           reflection: row.reflection,
@@ -32,7 +31,6 @@ export function DevotionalSpotlight() {
           appeal: row.appeal,
           prayer: row.prayer,
           keyText: row.keyText,
-          keyVerse: row.keyText || row.scripture,
           readingTime: Math.max(2, Math.ceil((row.content?.split(/\s+/).filter(Boolean).length || 0) / 150)),
         });
       })
@@ -80,7 +78,7 @@ export function DevotionalSpotlight() {
               <p className="mt-3 font-nunito text-sm font-bold uppercase tracking-widest text-gold">Key Text</p>
               <blockquote className="mx-auto mt-4 max-w-2xl">
                 <p className="font-nunito text-xl font-bold leading-relaxed text-white md:text-2xl">
-                  &ldquo;{devotional.keyText || devotional.keyVerse || devotional.scripture}&rdquo;
+                  &ldquo;{devotional.keyText}&rdquo;
                 </p>
               </blockquote>
             </div>

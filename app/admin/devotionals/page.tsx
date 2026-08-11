@@ -7,7 +7,6 @@ import { getTodayDate } from '@/lib/devotionals';
 type DevotionalRow = {
   id: number;
   title: string;
-  scripture: string;
   publish_date: string;
 };
 
@@ -99,7 +98,6 @@ export default function DevotionalsAdminListPage() {
                             {row.publish_date > getTodayDate() ? 'Scheduled' : 'Published'}
                           </span>
                         </div>
-                        <p className="mt-1 text-sm text-navy-100">{row.scripture}</p>
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         <Link
@@ -132,7 +130,6 @@ export default function DevotionalsAdminListPage() {
                 <thead className="bg-navy-800/60 text-navy-100">
                   <tr>
                     <th className="px-4 py-3 font-medium">Title</th>
-                    <th className="px-4 py-3 font-medium">Scripture</th>
                     <th className="px-4 py-3 font-medium">Status</th>
                     <th className="px-4 py-3 font-medium">Publish date</th>
                     <th className="px-4 py-3 font-medium">Actions</th>
@@ -142,7 +139,6 @@ export default function DevotionalsAdminListPage() {
                   {rows.map((row) => (
                     <tr key={row.id}>
                       <td className="px-4 py-3 font-medium text-white">{row.title}</td>
-                      <td className="px-4 py-3 text-navy-100">{row.scripture}</td>
                       <td className="px-4 py-3">
                         <span
                           className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${

@@ -100,7 +100,7 @@ export function DevotionalCard({ devotional }: { devotional: Devotional }) {
         <div className="rounded-2xl bg-navy-600 px-6 py-6 text-center">
           <BookOpen size={20} className="mx-auto text-gold" aria-hidden="true" />
           <p className="mt-2 font-nunito text-sm font-bold uppercase tracking-widest text-gold">Key Text</p>
-          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyText || devotional.keyVerse || devotional.scripture}&rdquo;</p>
+          <p className="mt-3 font-nunito text-xl font-bold leading-relaxed text-white">&ldquo;{devotional.keyText}&rdquo;</p>
         </div>
       </div>
       <div className="space-y-6 px-6 pb-6 font-roboto text-base leading-8 text-textgray sm:px-8 lg:px-10">

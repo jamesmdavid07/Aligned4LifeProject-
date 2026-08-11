@@ -12,7 +12,6 @@ import type { Devotional } from '@/lib/devotionals';
 export type DbDevotional = {
   id: number;
   title: string;
-  scripture: string;
   content: string;
   ellenWhiteInsight?: string;
   reflection: string;
@@ -29,7 +28,6 @@ function mapDbDevotional(row: DbDevotional): Devotional {
     id: row.id,
     date: row.publish_date || row.date,
     title: row.title,
-    scripture: row.scripture,
     content: row.content,
     ellenWhiteInsight: row.ellenWhiteInsight,
     reflection: row.reflection,
@@ -37,7 +35,6 @@ function mapDbDevotional(row: DbDevotional): Devotional {
     appeal: row.appeal,
     prayer: row.prayer,
     keyText: row.keyText,
-    keyVerse: row.keyText || row.scripture,
     readingTime: Math.max(2, Math.ceil((row.content?.split(/\s+/).filter(Boolean).length || 0) / 150)),
   };
 }

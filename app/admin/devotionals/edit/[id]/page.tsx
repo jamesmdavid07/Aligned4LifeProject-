@@ -7,7 +7,6 @@ import { ArrowLeft } from 'lucide-react';
 
 type FormState = {
   title: string;
-  scripture: string;
   keyText: string;
   content: string;
   ellenWhiteInsight: string;
@@ -20,7 +19,6 @@ type FormState = {
 
 const initialFormState: FormState = {
   title: '',
-  scripture: '',
   keyText: '',
   content: '',
   ellenWhiteInsight: '',
@@ -53,7 +51,6 @@ export default function EditDevotionalPage() {
         const row = result.data[0];
         setFormData({
           title: row.title ?? '',
-          scripture: row.scripture ?? '',
           keyText: row.keyText ?? '',
           content: row.content ?? '',
           ellenWhiteInsight: row.ellenWhiteInsight ?? '',
@@ -97,7 +94,6 @@ export default function EditDevotionalPage() {
         body: JSON.stringify({
           id: Number(id),
           title: formData.title,
-          scripture: formData.scripture,
           keyText: formData.keyText,
           content: formData.content,
           ellenWhiteInsight: formData.ellenWhiteInsight,
@@ -141,7 +137,7 @@ export default function EditDevotionalPage() {
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-gold">Admin Dashboard</p>
           <h1 className="text-3xl font-semibold text-white sm:text-4xl">Edit Devotional</h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-navy-100 sm:text-base">
-            Update the devotional content and image for this existing entry.
+            Update the devotional content for this existing entry.
           </p>
         </div>
 
@@ -162,32 +158,17 @@ export default function EditDevotionalPage() {
             </div>
           ) : null}
 
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="space-y-2">
-              <label htmlFor="title" className="text-sm font-medium text-navy-100">Title</label>
-              <input
-                id="title"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="Enter devotional title"
-                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="scripture" className="text-sm font-medium text-navy-100">Scripture</label>
-              <input
-                id="scripture"
-                name="scripture"
-                value={formData.scripture}
-                onChange={handleChange}
-                placeholder="e.g. Psalm 23:1"
-                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
-                required
-              />
-            </div>
+          <div className="space-y-2">
+            <label htmlFor="title" className="text-sm font-medium text-navy-100">Title</label>
+            <input
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Enter devotional title"
+              className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
+              required
+            />
           </div>
 
           <div className="space-y-2">

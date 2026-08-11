@@ -2,7 +2,6 @@ export interface Devotional {
   id: number;
   date: string;
   title: string;
-  scripture: string;
   content: string;
   ellenWhiteInsight?: string;
   reflection: string;
@@ -10,7 +9,6 @@ export interface Devotional {
   appeal?: string;
   prayer: string;
   keyText?: string;
-  keyVerse: string;
   readingTime: number;
 }
 

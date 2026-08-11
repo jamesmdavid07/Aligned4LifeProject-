@@ -6,7 +6,6 @@ import { ArrowLeft } from 'lucide-react';
 
 type FormState = {
   title: string;
-  scripture: string;
   keyText: string;
   content: string;
   ellenWhiteInsight: string;
@@ -19,7 +18,6 @@ type FormState = {
 
 const initialFormState = {
   title: '',
-  scripture: '',
   keyText: '',
   content: '',
   ellenWhiteInsight: '',
@@ -55,7 +53,6 @@ export default function NewDevotionalPage() {
         },
         body: JSON.stringify({
           title: formData.title,
-          scripture: formData.scripture,
           keyText: formData.keyText,
           content: formData.content,
           ellenWhiteInsight: formData.ellenWhiteInsight,
@@ -119,36 +116,19 @@ export default function NewDevotionalPage() {
               {status.message}
             </div>
           ) : null}
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="space-y-2">
-              <label htmlFor="title" className="text-sm font-medium text-navy-100">
-                Title
-              </label>
-              <input
-                id="title"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="Enter devotional title"
-                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none ring-0 transition focus:border-gold"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="scripture" className="text-sm font-medium text-navy-100">
-                Scripture
-              </label>
-              <input
-                id="scripture"
-                name="scripture"
-                value={formData.scripture}
-                onChange={handleChange}
-                placeholder="e.g. Psalm 23:1"
-                className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none transition focus:border-gold"
-                required
-              />
-            </div>
+          <div className="space-y-2">
+            <label htmlFor="title" className="text-sm font-medium text-navy-100">
+              Title
+            </label>
+            <input
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Enter devotional title"
+              className="w-full rounded-xl border border-white/15 bg-navy-800/60 px-4 py-3 text-sm text-white outline-none ring-0 transition focus:border-gold"
+              required
+            />
           </div>
 
           <div className="space-y-2">
