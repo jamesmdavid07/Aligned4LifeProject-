@@ -30,7 +30,7 @@ export function MonthFolder({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="flex w-full items-center justify-center gap-3 rounded-2xl border border-navy-400/30 bg-white/95 px-4 py-5 text-left shadow-sm backdrop-blur transition-all hover:border-gold-300 hover:shadow-lg hover:shadow-gold-500/10 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:px-5 sm:py-6"
+        className="flex w-full items-center justify-center gap-3 rounded-2xl border border-navy-100 bg-white px-4 py-6 text-left shadow-sm transition-all hover:border-gold-300 hover:shadow-lg hover:shadow-gold-500/10 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:px-6 sm:py-7"
         aria-label={`Open ${label} archive`}
       >
         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold-100 text-gold">
@@ -68,7 +68,7 @@ export function MonthFolder({
           </button>
         </div>
       </div>
-      <div className="overflow-x-auto p-2 sm:p-3">
+      <div className="overflow-x-auto p-3 sm:p-4">
         <DateSelector
           year={year}
           month={month}

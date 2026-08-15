@@ -32,7 +32,7 @@ export function DateSelector({
       <div className="grid grid-cols-7 gap-1 text-center font-raleway text-[10px] font-bold uppercase tracking-wider text-gold sm:gap-2 sm:text-xs">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => <span key={day}>{day}</span>)}
       </div>
-      <div className="mt-2 grid grid-cols-7 gap-1 sm:gap-1.5">
+      <div className="mt-2 grid grid-cols-7 gap-1.5 sm:gap-2">
         {leadingDays.map((_, index) => <span key={`empty-${index}`} aria-hidden="true" />)}
         {calendarDays.map((date) => {
         const selected = date === selectedDate;
@@ -44,7 +44,7 @@ export function DateSelector({
             onClick={() => onSelect(date)}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.92 }}
-            className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full font-nunito text-xs font-extrabold transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:h-10 sm:w-10 sm:text-sm ${
+            className={`mx-auto flex h-10 w-10 items-center justify-center rounded-full font-nunito text-xs font-extrabold transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 sm:h-11 sm:w-11 sm:text-sm ${
               selected
                 ? available
                   ? 'bg-gold text-white shadow-md shadow-gold-300/30'

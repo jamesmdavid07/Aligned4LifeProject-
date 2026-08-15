@@ -1,8 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Calendar, BookOpen } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import type { WeeklyBlog } from '@/lib/weekly-blogs';
 import { formatBlogDate } from '@/lib/weekly-blogs';
 import { ReadingTime } from '@/components/devotionals/ReadingTime';
@@ -145,8 +144,6 @@ function renderBlogParagraphs(content: string) {
 }
 
 export function BlogArticle({ blog }: { blog: WeeklyBlog }) {
-  const hasImage = Boolean(blog.image);
-
   return (
     <motion.article
       key={blog.id}
@@ -156,51 +153,6 @@ export function BlogArticle({ blog }: { blog: WeeklyBlog }) {
       transition={{ duration: 0.45, ease: 'easeOut' }}
     >
       <div className="h-1.5 bg-gradient-to-r from-gold via-gold-300 to-gold" />
-
-      {hasImage ? (
-        <div className="w-full">
-          <Image
-            src={blog.image}
-            alt={`Featured reflection: ${blog.title}`}
-            width={1200}
-            height={630}
-            priority
-            className="mx-auto h-auto w-full"
-            sizes="(max-width: 1200px) 100vw, 1200px"
-          />
-        </div>
-      ) : (
-        <div
-          className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden"
-          style={{ background: '#1A3A71' }}
-        >
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute left-[-10%] top-[-20%] h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
-            <div className="absolute bottom-[-25%] right-[-10%] h-96 w-96 rounded-full bg-navy-300/10 blur-3xl" />
-          </div>
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage:
-                'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-              backgroundSize: '52px 52px',
-            }}
-          />
-          <div className="relative z-10 flex flex-col items-center gap-4 px-6 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-gold shadow-lg ring-1 ring-white/20">
-              <BookOpen size={24} aria-hidden="true" />
-            </span>
-            <span
-              className="flex items-center justify-center gap-2"
-              aria-hidden="true"
-            >
-              <span className="h-px w-14 bg-gradient-to-r from-transparent to-gold/70" />
-              <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
-              <span className="h-px w-14 bg-gradient-to-l from-transparent to-gold/70" />
-            </span>
-          </div>
-        </div>
-      )}
 
       <div className="px-6 py-8 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-3xl">

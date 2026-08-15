@@ -96,6 +96,7 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
     if (date > today) {
       setDisplayedDevotional(null);
       setIsLoading(false);
+      scrollToFeatured();
       return;
     }
 
@@ -118,14 +119,20 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
       console.error('Failed to load selected devotional', error);
     } finally {
       setIsLoading(false);
-      window.requestAnimationFrame(() => {
-        document.getElementById('featured-devotional')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+      scrollToFeatured();
     }
   }
 
   const activeDevotional = displayedDevotional;
   const activeSelectedDate = selectedDate || activeDevotional?.date || today;
+
+  function scrollToFeatured() {
+    window.requestAnimationFrame(() => {
+      document
+        .getElementById('featured-devotional')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 
   return (
     <>
@@ -183,9 +190,7 @@ export function DevotionalsPage({ initialDevotionals = [] }: { initialDevotional
               )}
             </AnimatePresence>
           </section>
-          <div className="mx-auto w-full max-w-site px-4 md:px-8 lg:px-12">
-            <Archive year={Number(today.slice(0, 4))} today={today} selectedDate={activeSelectedDate} availableDates={availableDates} onSelectDate={selectDate} />
-          </div>
+          <Archive year={Number(today.slice(0, 4))} today={today} selectedDate={activeSelectedDate} availableDates={availableDates} onSelectDate={selectDate} />
         </div>
       </main>
     </>

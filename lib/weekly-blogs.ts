@@ -2,7 +2,6 @@ export interface WeeklyBlog {
   id: number;
   title: string;
   subtitle?: string;
-  image: string;
   content: string;
   publishDate: string;
   weekNumber: number | null;
@@ -13,7 +12,6 @@ export type DbWeeklyBlog = {
   id: number;
   title: string;
   subtitle?: string;
-  image: string;
   content: string;
   week_number: number | null;
   publish_date: string;
@@ -56,7 +54,6 @@ export function mapDbWeeklyBlog(row: DbWeeklyBlog): WeeklyBlog {
     id: row.id,
     title: row.title,
     subtitle: row.subtitle,
-    image: row.image || '',
     content: row.content,
     publishDate: row.publish_date,
     weekNumber: row.week_number == null ? null : Number(row.week_number),

@@ -72,27 +72,7 @@ export function WeeklyBlogPage({ initialBlogs = [] }: { initialBlogs?: DbWeeklyB
       <JourneySection />
       <main className="bg-navy-50 py-12 md:py-16">
         <div className="space-y-10">
-          <section
-            id="weekly-reflection"
-            className="scroll-mt-24"
-            aria-labelledby="reflection-heading"
-          >
-            <div className="mx-auto mb-6 w-full max-w-site px-4 md:px-8 lg:px-12">
-              <p className="font-raleway text-sm font-bold uppercase tracking-[0.25em] text-gold">
-                This Week&apos;s Reflection
-              </p>
-              <h2
-                id="reflection-heading"
-                className="mt-2 font-nunito text-3xl font-extrabold text-navy-600 sm:text-4xl"
-              >
-                {currentIndex === latestPublishedIndex || !displayedBlog
-                  ? 'This Week\u2019s Reflection'
-                  : displayedBlog.weekNumber != null
-                    ? `Reflection for Week ${displayedBlog.weekNumber}`
-                    : 'Reflection from a Previous Week'}
-              </h2>
-            </div>
-
+          <section id="weekly-reflection" className="scroll-mt-24">
             <AnimatePresence mode="wait">
               {isLoading ? (
                 <motion.div
@@ -133,14 +113,13 @@ export function WeeklyBlogPage({ initialBlogs = [] }: { initialBlogs?: DbWeeklyB
             </AnimatePresence>
           </section>
 
-          <div className="mx-auto w-full max-w-site px-4 md:px-8 lg:px-12">
-            <BlogArchive
-              blogs={blogs}
-              activeId={displayedBlog?.id ?? null}
-              onSelect={selectBlog}
-              onBackToThisWeek={backToThisWeek}
-            />
-          </div>
+          <BlogArchive
+            blogs={blogs}
+            activeId={displayedBlog?.id ?? null}
+            onSelect={selectBlog}
+            onBackToThisWeek={backToThisWeek}
+            onReadToday={backToThisWeek}
+          />
         </div>
       </main>
     </>
