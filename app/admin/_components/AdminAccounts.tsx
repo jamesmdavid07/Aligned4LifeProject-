@@ -115,7 +115,7 @@ export default function AdminAccountsClient() {
       <div className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-navy-700/60 p-6 shadow-2xl shadow-black/30 sm:p-8 lg:p-10">
         <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-gold">Admin Dashboard</p>
         <h1 className="text-3xl font-semibold text-white sm:text-4xl">Admin accounts</h1>
-        <p className="mt-2 text-sm text-navy-100">Owner only — manage admin accounts and roles.</p>
+        <p className="mt-2 text-sm text-navy-100">Manage admin accounts and roles.</p>
 
         {error ? (
           <div className="mt-6 rounded-xl border border-rose-400/60 bg-rose-500/15 px-4 py-3 text-sm text-rose-200">

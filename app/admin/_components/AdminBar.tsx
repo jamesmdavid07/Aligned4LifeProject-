@@ -32,9 +32,11 @@ export default function AdminBar({ email, role }: { email: string; role: string 
   }
 
   const links = [
-    { href: '/admin/devotionals', label: 'Devotionals' },
+    { href: '/admin', label: 'Dashboard' },
+    { href: '/admin/devotionals', label: 'Devotions' },
+    { href: '/admin/blog', label: 'Blog' },
     { href: '/admin/account', label: 'Account settings' },
-    ...(role === 'owner' ? [{ href: '/admin/accounts', label: 'Admin accounts' }] : []),
+    { href: '/admin/accounts', label: 'Admin accounts' },
   ];
 
   return (

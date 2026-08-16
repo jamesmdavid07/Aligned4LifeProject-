@@ -40,6 +40,26 @@ function renderInline(text: string) {
   );
 }
 
+function parseBlogContent(content: string) {
+  let theme: string | null = null;
+  let keyText: string | null = null;
+  let body = content.trim();
+
+  const themeMatch = body.match(/^\[THEME\]\n([\s\S]*?)(?=\n\n)/);
+  if (themeMatch) {
+    theme = themeMatch[1].trim();
+    body = body.slice(themeMatch[0].length).replace(/^\n+/, '');
+  }
+
+  const keyMatch = body.match(/^\[KEY\]\n([\s\S]*?)(?=\n\n)/);
+  if (keyMatch) {
+    keyText = keyMatch[1].trim();
+    body = body.slice(keyMatch[0].length).replace(/^\n+/, '');
+  }
+
+  return { theme, keyText, body };
+}
+
 function renderBlogParagraphs(content: string) {
   return content.split('\n\n').map((paragraph, idx) => {
     const trimmed = paragraph.trim();
@@ -139,11 +159,20 @@ function renderBlogParagraphs(content: string) {
       );
     }
 
-    return <p key={idx} className="leading-8">{renderInline(trimmed)}</p>;
+    return (
+      <p key={idx} className={idx === 0 ? 'text-lg leading-8 md:text-xl md:leading-9' : 'leading-8'}>
+        {renderInline(trimmed)}
+      </p>
+    );
   });
 }
 
 export function BlogArticle({ blog }: { blog: WeeklyBlog }) {
+  const fallback = parseBlogContent(blog.content);
+  const theme = blog.theme ?? fallback.theme;
+  const keyText = blog.keyText ?? fallback.keyText;
+  const body = fallback.theme === null && fallback.keyText === null ? blog.content : fallback.body;
+
   return (
     <motion.article
       key={blog.id}
@@ -164,7 +193,13 @@ export function BlogArticle({ blog }: { blog: WeeklyBlog }) {
             <ReadingTime minutes={blog.readingTime} />
           </div>
 
-          <h2 className="mt-5 font-nunito text-2xl font-extrabold leading-tight text-navy-700 sm:text-3xl md:text-4xl">
+          {theme ? (
+            <p className="mt-5 font-raleway text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+              {theme}
+            </p>
+          ) : null}
+
+          <h2 className="mt-3 font-nunito text-2xl font-extrabold leading-tight text-navy-700 sm:text-3xl md:text-4xl">
             {blog.title}
           </h2>
 
@@ -172,6 +207,14 @@ export function BlogArticle({ blog }: { blog: WeeklyBlog }) {
             <p className="mt-3 font-nunito text-lg font-bold leading-relaxed text-gold md:text-xl">
               {blog.subtitle}
             </p>
+          ) : null}
+
+          {keyText ? (
+            <blockquote className="mt-6 rounded-2xl border-l-4 border-gold bg-gold-50/70 px-6 py-5">
+              <p className="font-nunito text-lg font-bold leading-relaxed text-navy-700 md:text-xl">
+                {keyText}
+              </p>
+            </blockquote>
           ) : null}
 
           <div
@@ -182,8 +225,8 @@ export function BlogArticle({ blog }: { blog: WeeklyBlog }) {
             <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
           </div>
 
-          <div className="mt-8 space-y-6 font-roboto text-base leading-8 text-textgray md:text-lg md:leading-8">
-            {renderBlogParagraphs(blog.content)}
+          <div className="mt-8 space-y-8 font-roboto text-base leading-8 text-textgray md:text-lg md:leading-8">
+            {renderBlogParagraphs(body)}
           </div>
 
           <div className="mt-10 border-t border-navy-100 pt-6">

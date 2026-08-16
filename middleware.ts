@@ -28,6 +28,7 @@ export async function middleware(request: NextRequest) {
   const isAdminPage = pathname.startsWith('/admin') && pathname !== '/admin/login';
   const isProtectedApi =
     (pathname === '/api/devotionals' && request.method !== 'GET') ||
+    (pathname === '/api/weekly-blogs' && request.method !== 'GET') ||
     pathname === '/api/upload';
 
   if (isProtectedApi) {
@@ -48,5 +49,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/devotionals', '/api/upload'],
+  matcher: ['/admin/:path*', '/api/devotionals', '/api/weekly-blogs', '/api/upload'],
 };

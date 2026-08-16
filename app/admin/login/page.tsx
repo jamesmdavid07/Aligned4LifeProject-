@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
         return;
       }
 
-      router.replace('/admin/devotionals');
+      router.replace('/admin');
       router.refresh();
     } catch {
       setError('Unable to log in. Please try again.');
@@ -41,9 +41,20 @@ export default function AdminLoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-navy-600 px-4 py-10">
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-navy-700/60 p-8 shadow-2xl shadow-black/30">
+        <div className="mb-6 flex justify-center">
+          <div className="rounded-xl bg-white p-4">
+            <Image
+              src="/images/shared/footer-logo.png"
+              alt="Aligned4LifeProject logo"
+              width={200}
+              height={80}
+              className="h-auto w-[180px]"
+            />
+          </div>
+        </div>
         <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-gold">Admin</p>
         <h1 className="text-3xl font-semibold text-white">Sign in</h1>
-        <p className="mt-2 text-sm text-navy-100">Access the devotional CMS.</p>
+        <p className="mt-2 text-sm text-navy-100">Access the dashboard.</p>
 
         {error ? (
           <div className="mt-6 rounded-xl border border-rose-400/60 bg-rose-500/15 px-4 py-3 text-sm text-rose-200">
@@ -92,12 +103,6 @@ export default function AdminLoginPage() {
             {submitting ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
-
-        <p className="mt-6 text-center text-xs text-navy-100/70">
-          <Link href="/devotionals" className="text-navy-100 transition hover:text-gold-200">
-            ← Back to devotionals
-          </Link>
-        </p>
       </div>
     </div>
   );

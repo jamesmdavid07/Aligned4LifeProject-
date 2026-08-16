@@ -1,24 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import { getSession, hashPassword, isOwner, ADMIN_ROLES } from '@/lib/auth';
+import { getSession, hashPassword, ADMIN_ROLES } from '@/lib/auth';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type AdminRow = { id: number; email: string; role: string; created_at: string | Date };
 
-async function requireOwner() {
+async function requireSession() {
   const session = await getSession();
   if (!session) {
     return { session: null, error: NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 }) };
-  }
-  if (!isOwner(session)) {
-    return { session, error: NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 }) };
   }
   return { session, error: null };
 }
 
 export async function GET() {
-  const { error } = await requireOwner();
+  const { error } = await requireSession();
   if (error) return error;
 
   try {
@@ -40,7 +37,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const { session, error } = await requireOwner();
+  const { session, error } = await requireSession();
   if (error) return error;
 
   let body: { email?: unknown; role?: unknown; password?: unknown };
@@ -106,7 +103,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const { session, error } = await requireOwner();
+  const { session, error } = await requireSession();
   if (error) return error;
 
   const id = Number(request.nextUrl.searchParams.get('id'));
@@ -144,7 +141,7 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const { session, error } = await requireOwner();
+  const { session, error } = await requireSession();
   if (error) return error;
 
   let body: { id?: unknown; password?: unknown };
